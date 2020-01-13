@@ -1,6 +1,7 @@
 {
-  "recommendation": [
+  "recommendations": [
     "hnw.vscode-auto-open-markdown-preview",
-    "anseki.vscode-color"
+    "anseki.vscode-color",
+    "mgmcdermott.vscode-language-babel"
   ]
 }
