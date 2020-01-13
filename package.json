@@ -14,6 +14,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "deploy": "surge -p ./build -d tutorbox-demo.surge.sh",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
