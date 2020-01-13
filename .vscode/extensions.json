@@ -1,7 +1,9 @@
 {
   "recommendations": [
-    "hnw.vscode-auto-open-markdown-preview",
     "anseki.vscode-color",
-    "mgmcdermott.vscode-language-babel"
+    "dbaeumer.vscode-eslint",
+    "hnw.vscode-auto-open-markdown-preview",
+    "mgmcdermott.vscode-language-babel",
+    "msjsdiag.debugger-for-chrome"
   ]
 }
