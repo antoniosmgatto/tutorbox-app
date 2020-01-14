@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   AppBar, Toolbar, Typography, Button
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import { Redirect } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
   title: {
@@ -16,9 +17,12 @@ const useStyles = makeStyles(theme => ({
 
 const NavBar =() => {
   const classes = useStyles();
+  const [redirectTo, setRedirect] = useState()
+
+  if (redirectTo) return <Redirect to="/login" />
+
   const handleLogout = () => {
-    //TODO
-    console.log('Logout button  clicked')
+    setRedirect('/login')
   }
 
   return (

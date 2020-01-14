@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 import {
-  VideosView
+  VideosView, LoginView
 } from 'views';
 
 const Routes = () => {
@@ -12,6 +12,10 @@ const Routes = () => {
       exact
       path="/"
       to="/videos"
+    />
+    <Route
+      path="/login"
+      component={LoginView}
     />
     <Route
       path="/videos"
