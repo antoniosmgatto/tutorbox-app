@@ -2,13 +2,17 @@ import React from 'react';
 import { Router } from 'react-router-dom';
 import Routes from 'Routers';
 import { createBrowserHistory } from 'history';
-import 'assets/App.css';
+import { ThemeProvider } from '@material-ui/styles';
+import theme from 'theme';
 
+console.log(theme);
 const App = () => {
   return (
-    <Router history={createBrowserHistory()}>
-      <Routes />
-    </Router>
+    <ThemeProvider theme={theme}>
+      <Router history={createBrowserHistory()}>
+        <Routes />
+      </Router>
+    </ThemeProvider>
   );
 }
 
