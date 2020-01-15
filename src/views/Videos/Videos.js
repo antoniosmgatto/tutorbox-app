@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Container, Typography } from '@material-ui/core';
-import { NavBar } from 'components';
+import { NavBar, Notifications } from 'components';
 import { VideosTable } from './components/VideosTable'
 import { makeStyles } from '@material-ui/styles';
 
@@ -27,9 +27,14 @@ const videos = [
 
 const Videos = () => {
   const classes = useStyles()
+  const [notificationsOpened, openNotifications] = useState(false)
+
   return (
     <div>
-        <NavBar />
+        <NavBar
+        notificationsHandler={openNotifications}
+        notificationsOpened={notificationsOpened}
+        />
 
         <Container className={classes.container}>
           <Typography variant="h4" className={classes.title}>
@@ -37,6 +42,8 @@ const Videos = () => {
           </Typography>
           <VideosTable videos={videos} />
         </Container>
+
+        <Notifications open={notificationsOpened} notificationsHandler={openNotifications} />
     </div>
   )
 };
