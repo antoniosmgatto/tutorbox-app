@@ -1,6 +1,9 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-
+import { RouteWithLayout } from 'components'
+import {
+  MainLayout
+} from 'layouts'
 import {
   VideosView, LoginView
 } from 'views';
@@ -17,9 +20,11 @@ const Routes = () => {
       path="/login"
       component={LoginView}
     />
-    <Route
+    <RouteWithLayout
+      exact
       path="/videos"
       component={VideosView}
+      layout={MainLayout}
     />
   </Switch>
   )
