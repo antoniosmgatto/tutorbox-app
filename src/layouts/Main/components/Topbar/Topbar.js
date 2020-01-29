@@ -39,8 +39,8 @@ const Topbar = (props) => {
   }
 
   return (
-    <div>
-      <AppBar position="static">
+    <React.Fragment>
+      <AppBar position="fixed">
         <Toolbar>
           <IconButton edge="start" color="inherit" onClick={handleSidebarButton}>
             <MenuIcon />
@@ -59,9 +59,10 @@ const Topbar = (props) => {
         </Toolbar>
       </AppBar>
 
-      <Notifications open={openNotifications} notificationsHandler={setOpenNotifications} />
+      {/* <Notifications open={openNotifications} notificationsHandler={setOpenNotifications} /> */}
 
-    </div>
+      <Toolbar />
+    </React.Fragment>
   )
 }
 
