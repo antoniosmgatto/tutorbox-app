@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Container } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
-import { NavBar, Notifications } from 'components'
+import { Topbar } from './components'
 import { Sidebar } from './components'
 
 const useStyles = makeStyles(theme => ({
@@ -18,7 +18,6 @@ const useStyles = makeStyles(theme => ({
 const Main = props => {
   const { children } = props
   const classes = useStyles()
-  const [notificationsOpened, openNotifications] = useState(false)
   const [openSidebar, setOpenSidebar] = useState(false)
 
   const handleSidebarOpen = () => {
@@ -31,13 +30,9 @@ const Main = props => {
 
   return (
     <div classes={classes.root} >
-      <NavBar
-        notificationsHandler={openNotifications}
-        notificationsOpened={notificationsOpened}
+      <Topbar
         onSidebarOpen={handleSidebarOpen}
-        />
-
-      <Notifications open={notificationsOpened} notificationsHandler={openNotifications} />
+      />
 
       <Sidebar
         open={openSidebar}
