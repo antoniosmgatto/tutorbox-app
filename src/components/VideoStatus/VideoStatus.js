@@ -1,9 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { makeStyles } from '@material-ui/styles'
-import { Typography, colors } from '@material-ui/core'
+import { Typography } from '@material-ui/core'
 import { getVideoStatusColor } from 'helpers'
-import color from '@material-ui/core/colors/amber'
 
 const useStyles = makeStyles(theme => ({
   root: {

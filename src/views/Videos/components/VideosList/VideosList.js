@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { List, ListItem, ListItemText, Divider, ListItemAvatar, Avatar } from '@material-ui/core'
+import { List, ListItem, ListItemText, Divider, ListItemAvatar } from '@material-ui/core'
 import { VideoAvatar } from './component'
 
 const VideosList = props => {
