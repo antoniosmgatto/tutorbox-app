@@ -26,10 +26,12 @@ const Videos = () => {
   const classes = useStyles()
 
   return (
-    <div>
-      <Typography variant="h4" className={classes.title}>
-        Vídeos
-      </Typography>
+    <section>
+      <header>
+        <Typography variant="h4" className={classes.title}>
+          Vídeos
+        </Typography>
+      </header>
 
       <Hidden mdUp>
         <VideosList videos={videos} />
@@ -39,7 +41,7 @@ const Videos = () => {
         <VideosTable videos={videos} />
       </Hidden>
 
-    </div>
+    </section>
   )
 };
 
