@@ -1,6 +1,6 @@
 import React from 'react';
-import { Typography } from '@material-ui/core';
-import { VideosTable } from './components'
+import { Typography, Hidden } from '@material-ui/core';
+import { VideosList, VideosTable } from './components'
 import { makeStyles } from '@material-ui/styles';
 
 const useStyles = makeStyles(theme => ({
@@ -30,7 +30,15 @@ const Videos = () => {
       <Typography variant="h4" className={classes.title}>
         Vídeos
       </Typography>
-      <VideosTable videos={videos} />
+
+      <Hidden mdUp>
+        <VideosList videos={videos} />
+      </Hidden>
+
+      <Hidden smDown>
+        <VideosTable videos={videos} />
+      </Hidden>
+
     </div>
   )
 };

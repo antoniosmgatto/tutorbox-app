@@ -2,13 +2,14 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { makeStyles } from '@material-ui/styles'
 import { Typography, colors } from '@material-ui/core'
+import { getVideoStatusColor } from 'helpers'
+import color from '@material-ui/core/colors/amber'
 
 const useStyles = makeStyles(theme => ({
   root: {
     padding: 5,
     borderRadius: 3,
     color: theme.palette.common.white,
-    backgroundColor: colors.green['500'],
   }
 }))
 
@@ -28,8 +29,16 @@ const VideoStatus = props => {
   const {status} = props
   const classes = useStyles()
   const label = getLabelFromStatus(status)
+  const statusColor = getVideoStatusColor(status)
   return (
-    <Typography variant="body1" component="span" className={classes.root} >{label}</Typography>
+    <Typography
+      variant="body1"
+      component="span"
+      className={classes.root}
+      style={{ backgroundColor: statusColor }}
+    >
+      {label}
+    </Typography>
   )
 }
 
