@@ -34,8 +34,16 @@ const Topbar = (props) => {
     setRedirect('/login')
   }
 
-  const handleOpenNotifications = () => {
+  const toogleNotifications = () => {
     setOpenNotifications(!openNotifications)
+  }
+
+  const handleNotiticationsOpen = () => {
+    setOpenNotifications(true)
+  }
+
+  const handleNotiticationsClose = () => {
+    setOpenNotifications(false)
   }
 
   return (
@@ -49,7 +57,7 @@ const Topbar = (props) => {
             Tutorbox App
           </Typography>
           <div className={classes.actions}>
-            <Button color="inherit" onClick={handleOpenNotifications}>
+            <Button color="inherit" onClick={toogleNotifications}>
               <NotificationsNoneIcon />
             </Button>
             <Button color="inherit" onClick={handleLogout} >
@@ -59,7 +67,11 @@ const Topbar = (props) => {
         </Toolbar>
       </AppBar>
 
-      {/* <Notifications open={openNotifications} notificationsHandler={setOpenNotifications} /> */}
+      <Notifications
+        open={openNotifications}
+        onOpen={handleNotiticationsOpen}
+        onClose={handleNotiticationsClose}
+      />
 
       <Toolbar />
     </React.Fragment>
