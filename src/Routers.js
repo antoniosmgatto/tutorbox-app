@@ -5,7 +5,7 @@ import {
   MainLayout
 } from 'layouts'
 import {
-  VideosView, LoginView
+  Knowledges, VideosView, LoginView
 } from 'views';
 
 const Routes = () => {
@@ -14,11 +14,17 @@ const Routes = () => {
     <Redirect
       exact
       path="/"
-      to="/videos"
+      to="/conhecimentos"
     />
     <Route
       path="/login"
       component={LoginView}
+    />
+    <RouteWithLayout
+      exact
+      path="/conhecimentos"
+      component={Knowledges}
+      layout={MainLayout}
     />
     <RouteWithLayout
       exact

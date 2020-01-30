@@ -9,7 +9,8 @@ import {
   Typography
 } from '@material-ui/core'
 import {
-  VideoLibrary as VideoLibraryIcon
+  Note as NoteIcon,
+  VideoLibrary as VideoLibraryIcon,
 } from '@material-ui/icons'
 
 const useStyles = makeStyles(theme => ({
@@ -41,6 +42,11 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const menuItems = [
+  {
+    label: 'Conhecimentos',
+    href: '/conhecimentos',
+    icon: <NoteIcon /> ,
+  },
   {
     label: 'Vídeos',
     href: '/videos',
