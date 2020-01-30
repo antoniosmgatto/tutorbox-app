@@ -1,1 +1,1 @@
-export { default as VideosTable } from './VideosTable';
+export { default } from './VideosTable'
