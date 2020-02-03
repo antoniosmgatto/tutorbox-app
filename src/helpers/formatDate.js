@@ -7,7 +7,7 @@ const convertTypeToFormat = type => {
       format = 'DD/MM/YY'
     break
     case 'datetime':
-      format = 'DD/MM/YY HH:mm'
+      format = 'DD/MM/YY [às] HH:mm[h]'
       break
     default:
       throw Error('Invalid format type')
