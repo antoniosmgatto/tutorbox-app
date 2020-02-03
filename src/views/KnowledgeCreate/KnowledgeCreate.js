@@ -1,11 +1,9 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { Breadcrumbs, Link, Typography, Grid, Paper, List, ListItem, Divider, ListItemText, ListItemAvatar, Avatar, Button, ListItemSecondaryAction, IconButton, Snackbar } from '@material-ui/core'
+import { Breadcrumbs, Link, Typography, Grid, Paper, List, ListItem } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import { formatDate } from 'helpers'
-import { Alert } from '@material-ui/lab'
 import { Attachments } from './components'
-
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -34,7 +32,7 @@ const knowledge = {
     }
   },
   attachments: [
-    { id: 1, name: "Image 1", documentType: "pdf", "url": "https://images.pexels.com/photos/406014/pexels-photo-406014.jpeg?cs=srgb&dl=adorable-blur-breed-close-up-406014.jpg&fm=jpg" },
+    { id: 1, name: "PDF 1", documentType: "pdf", "url": "https://images.pexels.com/photos/406014/pexels-photo-406014.jpeg?cs=srgb&dl=adorable-blur-breed-close-up-406014.jpg&fm=jpg" },
     { id: 2, name: "Image 1", documentType: "image", "url": "https://images.pexels.com/photos/406014/pexels-photo-406014.jpeg?cs=srgb&dl=adorable-blur-breed-close-up-406014.jpg&fm=jpg" },
   ]
 }

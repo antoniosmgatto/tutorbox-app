@@ -23,6 +23,14 @@ const Attachments = props => {
   const { attachments } = props
   const classes = useStyles()
 
+  const handleDeleteAttachment = (attachment) => {
+    const index = attachments.indexOf(attachment)
+    if (index > -1) {
+      attachments.splice(index, 1)
+    }
+    console.log("TODO ", attachment, "was deleted by index", index)
+  }
+
   return (
     <Paper
       className={classes.root}
@@ -35,7 +43,11 @@ const Attachments = props => {
         <List className={classes.attachments}>
             {
               attachments.map((attachment, index) => (
-                <AttachmentListItem key={index} attachment={attachment} />
+                <AttachmentListItem
+                  key={index}
+                  attachment={attachment}
+                  onDelete={() =>handleDeleteAttachment(attachment) }
+                />
               ))
             }
         </List>
