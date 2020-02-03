@@ -1,11 +1,13 @@
 import React from 'react';
-import { Typography, Hidden } from '@material-ui/core';
+import { Typography, Hidden, Button } from '@material-ui/core';
 import { KnownledgesList, KnownledgesTable } from './components'
 import { makeStyles } from '@material-ui/styles';
+import { useHistory } from 'react-router-dom'
 
 const useStyles = makeStyles(theme => ({
-  title: {
-    marginBottom: theme.spacing(4)
+  header: {
+    padding: theme.spacing(2, 0),
+    textAlign: 'right'
   }
 }));
 
@@ -24,13 +26,22 @@ const knowledges = [
 
 const Knowledges = () => {
   const classes = useStyles()
+  const history = useHistory()
+
+  const handleNewKnownledge = () => {
+    history.push('/conhecimento/novo')
+  }
 
   return (
     <section>
-      <header>
-        <Typography variant="h4" className={classes.title}>
-          Conhecimentos
-        </Typography>
+      <header className={classes.header}>
+        <Button
+          variant="outlined"
+          color="primary"
+          onClick={handleNewKnownledge}
+        >
+          Novo Conhecimento
+        </Button>
       </header>
 
       <Hidden mdUp>

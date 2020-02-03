@@ -5,7 +5,7 @@ import {
   MainLayout
 } from 'layouts'
 import {
-  Knowledges, VideosView, LoginView
+  Knowledges, KnowledgeCreateView, VideosView, LoginView
 } from 'views';
 
 const Routes = () => {
@@ -24,6 +24,12 @@ const Routes = () => {
       exact
       path="/conhecimentos"
       component={Knowledges}
+      layout={MainLayout}
+    />
+    <RouteWithLayout
+      exact
+      path="/conhecimento/novo"
+      component={KnowledgeCreateView}
       layout={MainLayout}
     />
     <RouteWithLayout
