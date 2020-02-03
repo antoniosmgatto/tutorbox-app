@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { Breadcrumbs, Link, Typography, Grid, Paper, List, ListItem, Divider, ListItemText, ListItemAvatar, Avatar, Button } from '@material-ui/core'
+import { Breadcrumbs, Link, Typography, Grid, Paper, List, ListItem, Divider, ListItemText, ListItemAvatar, Avatar, Button, ListItemSecondaryAction, IconButton, Snackbar } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import { formatDate } from 'helpers'
-import { Image as ImageIcon, CloudUpload as CloudUploadIcon } from '@material-ui/icons'
+import { Alert } from '@material-ui/lab'
+import { Attachments } from './components'
+
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -14,28 +16,11 @@ const useStyles = makeStyles(theme => ({
   knowledgeDetailsPaper: {
     padding: theme.spacing(2),
   },
-  attachmentsPaper: {
-    padding: theme.spacing(2),
-  },
-  attachmentsSection: {
-    minHeight: 320,
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  attachmentsList: {
-    flexGrow: 1,
-  },
   listItem: {
     display: 'flex',
   },
-  itemValue: {},
-  uploadButtonWrapper: {
-    marginTop: theme.spacing(1),
-    textAlign: 'center'
-  },
-  uploadButton: {},
-  attachmentInput: {
-    display: 'none',
+  itemValue: {
+    marginLeft: 'auto'
   }
 }))
 
@@ -51,16 +36,12 @@ const knowledge = {
   attachments: [
     { id: 1, name: "Image 1", documentType: "pdf", "url": "https://images.pexels.com/photos/406014/pexels-photo-406014.jpeg?cs=srgb&dl=adorable-blur-breed-close-up-406014.jpg&fm=jpg" },
     { id: 2, name: "Image 1", documentType: "image", "url": "https://images.pexels.com/photos/406014/pexels-photo-406014.jpeg?cs=srgb&dl=adorable-blur-breed-close-up-406014.jpg&fm=jpg" },
-    { id: 2, name: "Image 1", documentType: "image", "url": "https://images.pexels.com/photos/406014/pexels-photo-406014.jpeg?cs=srgb&dl=adorable-blur-breed-close-up-406014.jpg&fm=jpg" },
-    { id: 2, name: "Image 1", documentType: "image", "url": "https://images.pexels.com/photos/406014/pexels-photo-406014.jpeg?cs=srgb&dl=adorable-blur-breed-close-up-406014.jpg&fm=jpg" },
-    { id: 2, name: "Image 1", documentType: "image", "url": "https://images.pexels.com/photos/406014/pexels-photo-406014.jpeg?cs=srgb&dl=adorable-blur-breed-close-up-406014.jpg&fm=jpg" },
-    { id: 2, name: "Image 1", documentType: "image", "url": "https://images.pexels.com/photos/406014/pexels-photo-406014.jpeg?cs=srgb&dl=adorable-blur-breed-close-up-406014.jpg&fm=jpg" },
-    { id: 2, name: "Image 1", documentType: "image", "url": "https://images.pexels.com/photos/406014/pexels-photo-406014.jpeg?cs=srgb&dl=adorable-blur-breed-close-up-406014.jpg&fm=jpg" },
   ]
 }
 
 const KnowledgeCreate = props => {
   const classes = useStyles()
+
   return (
     <>
       <Breadcrumbs aria-label="breadcrumb">
@@ -214,59 +195,7 @@ const KnowledgeCreate = props => {
             item
             xs={12}
           >
-            <Paper
-              className={classes.attachmentsPaper}
-            >
-              <section className={classes.attachmentsSection}>
-                <header>
-                  <Typography variant="h6" color="textSecondary">Anexos</Typography>
-                </header>
-
-                <List className={classes.attachmentsList}>
-                    {
-                      knowledge.attachments.map(attachment => (
-                        <ListItem
-                          divider={true}
-                          disableGutters
-                          key={attachment.id}
-                        >
-                          <ListItemAvatar>
-                            <Avatar>
-                              <ImageIcon />
-                            </Avatar>
-                          </ListItemAvatar>
-                          <ListItemText>{attachment.name}</ListItemText>
-                        </ListItem>
-                      ))
-                    }
-                </List>
-
-                <div className={classes.uploadButtonWrapper}>
-                  <input
-                    id="attachment-input"
-                    className={classes.attachmentInput}
-                    accept="image/*"
-                    type="file"
-                  />
-
-                  <label
-                    htmlFor="attachment-input"
-                  >
-                    <Button
-                      className={classes.uploadButton}
-                      variant="outlined"
-                      endIcon={<CloudUploadIcon/>}
-                      multiple
-                      component="span"
-                    >
-                      Anexar
-                    </Button>
-                  </label>
-                </div>
-
-              </section>
-
-            </Paper>
+            <Attachments attachments={knowledge.attachments} />
           </Grid>
         </Grid>
 
