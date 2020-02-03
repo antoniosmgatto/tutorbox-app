@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { Breadcrumbs, Link, Typography, Grid, Paper, List, ListItem } from '@material-ui/core'
+import { Breadcrumbs, Link, Typography, Grid, Paper } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
-import { formatDate } from 'helpers'
-import { Attachments } from './components'
+import { Attachments, KnowledgeDetails } from './components'
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -11,15 +10,6 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2),
     minHeight: 600,
   },
-  knowledgeDetailsPaper: {
-    padding: theme.spacing(2),
-  },
-  listItem: {
-    display: 'flex',
-  },
-  itemValue: {
-    marginLeft: 'auto'
-  }
 }))
 
 const knowledge = {
@@ -78,115 +68,7 @@ const KnowledgeCreate = props => {
             item
             xs={12}
           >
-            <Paper
-              className={classes.knowledgeDetailsPaper}
-            >
-              <section>
-                <header>
-                  <Typography variant="h6" color="textSecondary">Detalhes</Typography>
-                </header>
-
-                <List>
-
-                  <ListItem
-                    divider={true}
-                    className={classes.listItem}
-                    disableGutters
-                  >
-
-                    <Typography
-                      variant="subtitle1"
-                      component="span"
-                      color="textSecondary"
-                    >
-                      Projeto
-                    </Typography>
-
-                    <Typography
-                      className={classes.itemValue}
-                      variant="body1"
-                      component="span"
-                    >
-                      {knowledge.project.name}
-                    </Typography>
-
-                  </ListItem>
-
-                  <ListItem
-                    divider={true}
-                    className={classes.listItem}
-                    disableGutters
-                  >
-
-                    <Typography
-                      variant="subtitle1"
-                      component="span"
-                      color="textSecondary"
-                    >
-                      Cliente
-                    </Typography>
-
-                    <Typography
-                      className={classes.itemValue}
-                      variant="body1"
-                      component="span"
-                    >
-                      {knowledge.project.client.name}
-                    </Typography>
-
-                  </ListItem>
-
-                  <ListItem
-                    divider={true}
-                    className={classes.listItem}
-                    disableGutters
-                  >
-
-                    <Typography
-                      variant="subtitle1"
-                      component="span"
-                      color="textSecondary"
-                    >
-                      Data de Criação
-                    </Typography>
-
-                    <Typography
-                      className={classes.itemValue}
-                      variant="body1"
-                      component="span"
-                    >
-                      {formatDate(knowledge.createdAt, 'datetime')}
-                    </Typography>
-
-                  </ListItem>
-
-                  <ListItem
-                    divider={true}
-                    className={classes.listItem}
-                    disableGutters
-                  >
-
-                    <Typography
-                      variant="subtitle1"
-                      component="span"
-                      color="textSecondary"
-                    >
-                      Última atualização
-                    </Typography>
-
-                    <Typography
-                      className={classes.itemValue}
-                      variant="body1"
-                      component="span"
-                    >
-                      {formatDate(knowledge.updatedAt, 'datetime')}
-                    </Typography>
-
-                  </ListItem>
-
-                </List>
-              </section>
-            </Paper>
+            <KnowledgeDetails knowledge={knowledge} />
           </Grid>
 
           <Grid
