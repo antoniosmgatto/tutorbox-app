@@ -15,13 +15,14 @@ const useStyles = makeStyles(theme => ({
   },
   itemActions: {},
   subitems: {
-    listStyleType: "disc"
+    listStyleType: "disc",
+    paddingLeft: theme.spacing(2)
   },
   subitemRoot: {
-    margin: theme.spacing(2, 0)
+    marginTop: theme.spacing(2),
   },
-  addSubitem: {
-    marginLeft: theme.spacing(4),
+  subitemInput: {
+    marginTop: theme.spacing(2),
   }
 }))
 
@@ -105,7 +106,11 @@ const Topic = props => {
                 </li>
               ))}
 
-              <ItemInput openFormLabel="Adicionar um subitem" onSave={handleSaveSubitem(item)} />
+              <ItemInput
+                openFormLabel="Adicionar um subitem"
+                onSave={handleSaveSubitem(item)}
+                className={classes.subitemInput}
+              />
 
             </ul>
           </li>
