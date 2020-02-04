@@ -37,6 +37,15 @@ const Topic = props => {
     setState({ ...state, items: items })
   }
 
+  const handleRemoveSubitem = (item, subitem) => {
+    const items = [...state.items]
+    const itemIndex = items.indexOf(item)
+    const subitemIndex = item.subitems.indexOf(subitem)
+    item.subitems.splice(subitemIndex, 1)
+    items[itemIndex] = item
+    setState({...state, items: items})
+  }
+
   const handleSaveItem = (value) => {
     const itemsUpdated = [
       ...state.items,
@@ -46,11 +55,7 @@ const Topic = props => {
         subitems: []
       }
     ]
-
-    setState({
-      ...state,
-      items: itemsUpdated
-    })
+    setState({...state, items: itemsUpdated})
   }
 
   const handleSaveSubitem = (value) => {
@@ -89,7 +94,7 @@ const Topic = props => {
                 <li key={index} className={classes.subitemRoot}>
                   <Typography variant="body1">{subitem.text}</Typography>
                   <div>
-                    <Button>Remover</Button>
+                    <Button onClick={() => handleRemoveSubitem(item, subitem)}>Remover</Button>
                   </div>
                 </li>
               ))}
