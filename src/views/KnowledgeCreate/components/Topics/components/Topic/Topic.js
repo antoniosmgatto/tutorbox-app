@@ -55,22 +55,28 @@ const Topic = props => {
         subitems: []
       }
     ]
-    setState({...state, items: itemsUpdated})
-  }
-
-  const handleSaveSubitem = (value) => {
-    const itemsUpdated = [
-      ...state.items,
-      {
-        id: -1,
-        text: value,
-        subitems: []
-      }
-    ]
 
     setState({
       ...state,
       items: itemsUpdated
+    })
+  }
+
+  const handleSaveSubitem = (item) => (newText) => {
+    const items = [...state.items]
+    const itemIndex = items.indexOf(item)
+    const subitems = [
+      ...item.subitems,
+      {
+        id: -1,
+        text: newText
+      }
+    ]
+    item.subitems = subitems
+    items[itemIndex] = item
+    setState({
+      ...state,
+      items: items
     })
   }
 
@@ -98,6 +104,9 @@ const Topic = props => {
                   </div>
                 </li>
               ))}
+
+              <ItemInput openFormLabel="Adicionar um subitem" onSave={handleSaveSubitem(item)} />
+
             </ul>
           </li>
         ))}
