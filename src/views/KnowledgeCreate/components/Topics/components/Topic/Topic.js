@@ -2,9 +2,7 @@ import React, { useState, useRef, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { makeStyles } from '@material-ui/styles'
 import { Typography, Button, IconButton } from '@material-ui/core'
-import { ItemInput } from './component'
-import { MoreVert as MoreVertIcon } from '@material-ui/icons'
-import { OptionsMenu } from 'components'
+import TopicItem from './component/TopicItem'
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -47,7 +45,7 @@ const Topic = props => {
   const classes = useStyles()
   const [state, setState] = useState(topic)
 
-  const handleRemoveItem = item => {
+  const handleDeleteItem = item => () => {
     const items = [...state.items]
     const index = items.indexOf(item)
     items.splice(index, 1)
@@ -63,12 +61,23 @@ const Topic = props => {
     setState({...state, items: items})
   }
 
-  const handleSaveItem = (value) => {
+  const handleUpdateItem = item => updatedText => {
+    const items = [...state.items]
+    const itemIndex = items.indexOf(item)
+    const updatedItem = { ...item, text: updatedText }
+    items[itemIndex] = updatedItem
+    setState({
+      ...state,
+      items: items
+    })
+  }
+
+  const handleSaveItem = (text) => {
     const itemsUpdated = [
       ...state.items,
       {
         id: -1,
-        text: value,
+        text: text,
         subitems: []
       }
     ]
@@ -113,15 +122,19 @@ const Topic = props => {
       <ol className={classes.items}>
         {state.items.map((item, index) => (
           <li key={index} className={classes.item}>
-            <Typography variant="body1" className={classes.itemText}>{item.text}</Typography>
+
+            <TopicItem
+              key={index}
+              item={item}
+              onUpdate={handleUpdateItem(item)}
+              onDelete={handleDeleteItem(item)}
+            />
+
             {/* <OptionsMenu options={optionsMenu} /> */}
             {/* <IconButton className={classes.itemMenuIcon}><MoreVertIcon /></IconButton> */}
 
             {/* <div className={classes.itemContainer}>
               <IconButton edge="end"><MoreVertIcon /></IconButton>
-            </div> */}
-            {/* <div>
-              <Button onClick={() => handleRemoveItem(item)}>Remover</Button>
             </div> */}
 
             {/* <ul className={classes.subitems}>
