@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { makeStyles } from '@material-ui/styles'
 import { SimpleTextEditor } from 'components'
@@ -11,15 +11,23 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const TopicItem = props => {
-  const { item, onUpdate, onDelete, onAddItem, enableEditMode } = props
+  const { item, onUpdate, onDelete, onAddItem } = props
   const classes = useStyles()
-  const [editMode, setEditMode] = useState(enableEditMode)
+  const isNewRecord = _ => item.id === -1
+  const [editMode, setEditMode] = useState(false)
+
+  useEffect(() => {
+    if (isNewRecord()) setEditMode(true)
+  }, [item])
 
   const handleOpenEditMode = () => {
     setEditMode(true)
   }
 
   const handleCloseEditMode = () => {
+    if (isNewRecord()) {
+      onDelete()
+    }
     setEditMode(false)
   }
 
@@ -72,7 +80,6 @@ TopicItem.propTypes = {
   onAddItem: PropTypes.func.isRequired,
   onUpdate: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
-  enableEditMode: PropTypes.bool
 }
 
 export default TopicItem

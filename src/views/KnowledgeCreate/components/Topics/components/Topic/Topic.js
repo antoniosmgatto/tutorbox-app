@@ -122,10 +122,6 @@ const Topic = props => {
     })
   }
 
-  const isNewRecord = object => {
-    return object.id === -1
-  }
-
   return (
     <div>
       <Typography variant="h6" color="textSecondary">
@@ -142,7 +138,6 @@ const Topic = props => {
               onAddItem={handleAddItem(index)}
               onUpdate={handleUpdateItem(item)}
               onDelete={handleDeleteItem(item)}
-              enableEditMode={isNewRecord(item)}
             />
 
             {/* <ul className={classes.subitems}>
