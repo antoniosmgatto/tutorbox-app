@@ -1,29 +1,45 @@
 import React, { useState, useRef, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { makeStyles } from '@material-ui/styles'
-import { Typography, Button } from '@material-ui/core'
+import { Typography, Button, IconButton } from '@material-ui/core'
 import { ItemInput } from './component'
+import { MoreVert as MoreVertIcon } from '@material-ui/icons'
+import { OptionsMenu } from 'components'
 
 const useStyles = makeStyles(theme => ({
   root: {},
   items: {
-    margin: 0,
     paddingLeft: theme.spacing(2),
   },
-  itemRoot: {
-    margin: theme.spacing(2, 0)
+  item: {
+    position: "relative",
+    padding: theme.spacing(2, 0),
   },
-  itemActions: {},
-  subitems: {
-    listStyleType: "disc",
-    paddingLeft: theme.spacing(2)
+  itemContainer: {
   },
-  subitemRoot: {
-    marginTop: theme.spacing(2),
+  itemMenuIcon: {
+    position: "absolute",
+    top: theme.spacing(1),
+    right: 0,
   },
-  subitemInput: {
-    marginTop: theme.spacing(2),
-  }
+  itemText: {
+    // marginRight: theme.spacing(1),
+    // backgroundColor: "red"
+  },
+  // itemActions: {},
+  // subitems: {
+  //   listStyleType: "disc",
+  //   paddingLeft: theme.spacing(2)
+  // },
+  // subitemRoot: {
+  //   marginTop: theme.spacing(2),
+  // },
+  // subitemInput: {
+  //   marginTop: theme.spacing(2),
+  // },
+  // text: {
+  //   padding: theme.spacing(2, 0)
+  // }
 }))
 
 const Topic = props => {
@@ -81,6 +97,13 @@ const Topic = props => {
     })
   }
 
+  const optionsMenu = [
+    {
+      label: "Editar",
+      onClick: ((e) => console.log('clicou') )
+    },
+  ]
+
   return (
     <>
       <Typography variant="h6" color="textSecondary">
@@ -89,14 +112,19 @@ const Topic = props => {
 
       <ol className={classes.items}>
         {state.items.map((item, index) => (
-          <li key={index} className={classes.itemRoot}>
-            <Typography variant="body1">{item.text}</Typography>
+          <li key={index} className={classes.item}>
+            <Typography variant="body1" className={classes.itemText}>{item.text}</Typography>
+            {/* <OptionsMenu options={optionsMenu} /> */}
+            {/* <IconButton className={classes.itemMenuIcon}><MoreVertIcon /></IconButton> */}
 
-            <div>
+            {/* <div className={classes.itemContainer}>
+              <IconButton edge="end"><MoreVertIcon /></IconButton>
+            </div> */}
+            {/* <div>
               <Button onClick={() => handleRemoveItem(item)}>Remover</Button>
-            </div>
+            </div> */}
 
-            <ul className={classes.subitems}>
+            {/* <ul className={classes.subitems}>
               {item.subitems.map((subitem, index) => (
                 <li key={index} className={classes.subitemRoot}>
                   <Typography variant="body1">{subitem.text}</Typography>
@@ -112,12 +140,12 @@ const Topic = props => {
                 className={classes.subitemInput}
               />
 
-            </ul>
+            </ul> */}
           </li>
         ))}
       </ol>
 
-      <ItemInput openFormLabel="Clique aqui para adicionar um item" onSave={handleSaveItem} />
+      {/* <ItemInput openFormLabel="Clique aqui para adicionar um item" onSave={handleSaveItem} /> */}
     </>
   )
 }
