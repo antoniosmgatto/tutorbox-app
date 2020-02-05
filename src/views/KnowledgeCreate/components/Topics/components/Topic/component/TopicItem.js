@@ -2,17 +2,18 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { makeStyles } from '@material-ui/styles'
 import { SimpleTextEditor } from 'components'
-import { MoreVert as MoreVertIcon, Add as AddIcon, Edit as EditIcon, Delete as DeleteIcon } from '@material-ui/icons'
+import { Add as AddIcon, Edit as EditIcon, Delete as DeleteIcon } from '@material-ui/icons'
 import { Typography, Button } from '@material-ui/core'
 
 const useStyles = makeStyles(theme => ({
-  root: {}
+  root: {},
+  itemText: {}
 }))
 
 const TopicItem = props => {
-  const { item, onUpdate, onDelete } = props
+  const { item, onUpdate, onDelete, onAddItem, enableEditMode } = props
   const classes = useStyles()
-  const [editMode, setEditMode] = useState(false)
+  const [editMode, setEditMode] = useState(enableEditMode)
 
   const handleOpenEditMode = () => {
     setEditMode(true)
@@ -22,10 +23,18 @@ const TopicItem = props => {
     setEditMode(false)
   }
 
-  const handleUpdate = (text) => {
-    onUpdate(text)
-    setEditMode(false)
+  const handleAddItem = () => {
+    onAddItem()
   }
+
+  const handleUpdate = (text) => {
+    if (text) {
+      onUpdate(text)
+      setEditMode(false)
+    } else {
+      onDelete()
+    }
+ }
 
   const handleDelete = () => {
     onDelete()
@@ -36,7 +45,7 @@ const TopicItem = props => {
       {
         editMode ? (
           <SimpleTextEditor
-            initialText={item.text}
+            inputText={item.text}
             onSave={handleUpdate}
             onClose={handleCloseEditMode}
           />
@@ -46,7 +55,7 @@ const TopicItem = props => {
             <Typography variant="body1" className={classes.itemText}>{item.text}</Typography>
 
             <div>
-              <Button size="small" startIcon={<AddIcon />} onClick={() => console.log("adicionar item")}>item</Button>
+              <Button size="small" startIcon={<AddIcon />} onClick={handleAddItem}>item</Button>
               <Button size="small" startIcon={<AddIcon />} onClick={() => console.log("adicionar sub-item")}>subitem</Button>
               <Button size="small" startIcon={<EditIcon />} onClick={handleOpenEditMode}>Editar</Button>
               <Button size="small" startIcon={<DeleteIcon/>} onClick={handleDelete}>Remover</Button>
@@ -60,8 +69,10 @@ const TopicItem = props => {
 
 TopicItem.propTypes = {
   item: PropTypes.object.isRequired,
+  onAddItem: PropTypes.func.isRequired,
   onUpdate: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired
+  onDelete: PropTypes.func.isRequired,
+  enableEditMode: PropTypes.bool
 }
 
 export default TopicItem

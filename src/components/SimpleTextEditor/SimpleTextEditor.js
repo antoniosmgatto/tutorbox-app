@@ -19,21 +19,23 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const ItemInput = props => {
-  const { className, initialText, onSave, onClose, ...otherOptions } = props
+  const { className, inputText, onSave, onClose, ...otherOptions } = props
   const classes = useStyles()
   const inputRef = useRef()
-  const [text, setText] = useState(initialText)
+  const [text, setText] = useState(inputText)
 
   useEffect(() => {
     inputRef.current.focus()
   }, [])
 
   const handleChange = event => {
-    setText(event.target.value)
+    const value = event.target.value
+    setText(value)
   }
 
   const handlerSave = () => {
     onSave(text)
+    onClose()
   }
 
   const handlerCancel = () => {
@@ -79,10 +81,9 @@ ItemInput.propTypes = {
   className: PropTypes.string,
   onSave: PropTypes.func.isRequired,
   onClose: PropTypes.func,
-  initialText: PropTypes.string
+  inputText: PropTypes.string
 }
 
-ItemInput.defaultProps = {
-}
+ItemInput.defaultProps = {}
 
 export default ItemInput

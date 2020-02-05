@@ -45,6 +45,21 @@ const Topic = props => {
   const classes = useStyles()
   const [state, setState] = useState(topic)
 
+  const handleAddItem = itemParentIndex => _event => {
+    const items = [ ...state.items ]
+    const newItem = {
+      id: -1,
+      text: "",
+      items: []
+    }
+    const itemIndex = itemParentIndex + 1
+    items.splice(itemIndex, 0, newItem)
+    setState({
+      ...state,
+      items: items
+    })
+  }
+
   const handleDeleteItem = item => () => {
     const items = [...state.items]
     const index = items.indexOf(item)
@@ -65,6 +80,7 @@ const Topic = props => {
     const items = [...state.items]
     const itemIndex = items.indexOf(item)
     const updatedItem = { ...item, text: updatedText }
+    console.log(itemIndex, updatedItem)
     items[itemIndex] = updatedItem
     setState({
       ...state,
@@ -106,15 +122,12 @@ const Topic = props => {
     })
   }
 
-  const optionsMenu = [
-    {
-      label: "Editar",
-      onClick: ((e) => console.log('clicou') )
-    },
-  ]
+  const isNewRecord = object => {
+    return object.id === -1
+  }
 
   return (
-    <>
+    <div>
       <Typography variant="h6" color="textSecondary">
         {state.title}
       </Typography>
@@ -126,16 +139,11 @@ const Topic = props => {
             <TopicItem
               key={index}
               item={item}
+              onAddItem={handleAddItem(index)}
               onUpdate={handleUpdateItem(item)}
               onDelete={handleDeleteItem(item)}
+              enableEditMode={isNewRecord(item)}
             />
-
-            {/* <OptionsMenu options={optionsMenu} /> */}
-            {/* <IconButton className={classes.itemMenuIcon}><MoreVertIcon /></IconButton> */}
-
-            {/* <div className={classes.itemContainer}>
-              <IconButton edge="end"><MoreVertIcon /></IconButton>
-            </div> */}
 
             {/* <ul className={classes.subitems}>
               {item.subitems.map((subitem, index) => (
@@ -158,8 +166,9 @@ const Topic = props => {
         ))}
       </ol>
 
-      {/* <ItemInput openFormLabel="Clique aqui para adicionar um item" onSave={handleSaveItem} /> */}
-    </>
+      <Button color="primary" onClick={handleAddItem(state.items.length)}>Adicionar novo item</Button>
+
+    </div>
   )
 }
 
