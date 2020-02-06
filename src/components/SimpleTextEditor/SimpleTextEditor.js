@@ -26,6 +26,8 @@ const ItemInput = props => {
 
   useEffect(() => {
     inputRef.current.focus()
+    inputRef.current.selectionStart = inputText.length
+    inputRef.current.selectionEnd = inputText.length
   }, [])
 
   const handleChange = event => {
