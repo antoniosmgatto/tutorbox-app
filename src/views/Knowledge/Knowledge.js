@@ -9,6 +9,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const knowledge = {
+  name: "Lançar Nota Fiscal",
   project: {
     name: "Projeto 1",
     createdAt: new Date(),
@@ -83,7 +84,7 @@ const KnowledgeCreate = props => {
         <Link color="inherit" href="/conhecimentos">
           Conhecimentos
         </Link>
-        <Typography>Novo</Typography>
+        <Typography>{knowledge.name}</Typography>
       </Breadcrumbs>
 
       <Grid
