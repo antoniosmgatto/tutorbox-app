@@ -11,33 +11,22 @@ const useStyles = makeStyles(theme => ({
   },
   item: {
     position: "relative",
-    padding: theme.spacing(2, 0),
+    padding: theme.spacing(1, 0),
   },
-  itemContainer: {
-  },
+  itemContainer: {},
   itemMenuIcon: {
     position: "absolute",
     top: theme.spacing(1),
     right: 0,
   },
-  itemText: {
-    // marginRight: theme.spacing(1),
-    // backgroundColor: "red"
+  itemText: {},
+  subitems: {
+    listStyleType: "disc",
+    paddingLeft: theme.spacing(3)
   },
-  // itemActions: {},
-  // subitems: {
-  //   listStyleType: "disc",
-  //   paddingLeft: theme.spacing(2)
-  // },
-  // subitemRoot: {
-  //   marginTop: theme.spacing(2),
-  // },
-  // subitemInput: {
-  //   marginTop: theme.spacing(2),
-  // },
-  // text: {
-  //   padding: theme.spacing(2, 0)
-  // }
+  subitem: {
+    paddingTop: theme.spacing(2)
+  }
 }))
 
 const Topic = props => {
@@ -50,10 +39,26 @@ const Topic = props => {
     const newItem = {
       id: -1,
       text: "",
-      items: []
+      subitems: []
     }
     const itemIndex = itemParentIndex + 1
     items.splice(itemIndex, 0, newItem)
+    setState({
+      ...state,
+      items: items
+    })
+  }
+
+  //TODO only for dev
+  const handleUpdateItem = item => updatedText => {
+    const items = [...state.items]
+    const itemIndex = items.indexOf(item)
+    const updatedItem = {
+      ...item,
+      id: itemIndex + 1,
+      text: updatedText
+    }
+    items[itemIndex] = updatedItem
     setState({
       ...state,
       items: items
@@ -67,20 +72,35 @@ const Topic = props => {
     setState({ ...state, items: items })
   }
 
-  const handleRemoveSubitem = (item, subitem) => {
+  const handleAddSubitem = (itemParentIndex, subitemParentIndex) => _event => {
+    const items = [...state.items]
+    const item = items[itemParentIndex]
+    const subitems = item.subitems
+    const newSubitem = {
+      id: -1,
+      text: "",
+    }
+    const subitemIndex = subitemParentIndex + 1
+    subitems.splice(subitemIndex, 0, newSubitem)
+    item.subitems = subitems
+    setState({
+      ...state,
+      items: items
+    })
+  }
+
+  //TODO only for dev
+  const handleUpdateSubitem = (item, subitem) => (updatedText) => {
     const items = [...state.items]
     const itemIndex = items.indexOf(item)
     const subitemIndex = item.subitems.indexOf(subitem)
-    item.subitems.splice(subitemIndex, 1)
-    items[itemIndex] = item
-    setState({...state, items: items})
-  }
-
-  const handleUpdateItem = item => updatedText => {
-    const items = [...state.items]
-    const itemIndex = items.indexOf(item)
-    const updatedItem = { ...item, text: updatedText }
-    console.log(itemIndex, updatedItem)
+    const updatedSubitem = {
+      ...subitem,
+      id: subitemIndex + 1,
+      text: updatedText,
+    }
+    const updatedItem = { ...item }
+    updatedItem.subitems[subitemIndex] = updatedSubitem
     items[itemIndex] = updatedItem
     setState({
       ...state,
@@ -88,38 +108,14 @@ const Topic = props => {
     })
   }
 
-  const handleSaveItem = (text) => {
-    const itemsUpdated = [
-      ...state.items,
-      {
-        id: -1,
-        text: text,
-        subitems: []
-      }
-    ]
-
-    setState({
-      ...state,
-      items: itemsUpdated
-    })
-  }
-
-  const handleSaveSubitem = (item) => (newText) => {
+  //TODO only for dev
+  const handleDeleteSubitem = (item, subitem) => _event => {
     const items = [...state.items]
     const itemIndex = items.indexOf(item)
-    const subitems = [
-      ...item.subitems,
-      {
-        id: -1,
-        text: newText
-      }
-    ]
-    item.subitems = subitems
+    const subitemIndex = item.subitems.indexOf(subitem)
+    item.subitems.splice(subitemIndex, 1)
     items[itemIndex] = item
-    setState({
-      ...state,
-      items: items
-    })
+    setState({...state, items: items})
   }
 
   return (
@@ -129,34 +125,30 @@ const Topic = props => {
       </Typography>
 
       <ol className={classes.items}>
-        {state.items.map((item, index) => (
-          <li key={index} className={classes.item}>
-
+        {state.items.map((item, itemIndex) => (
+          <li key={itemIndex} className={classes.item}>
             <TopicItem
-              key={index}
+              key={itemIndex}
               item={item}
-              onAddItem={handleAddItem(index)}
+              onAddItem={handleAddItem(itemIndex)}
+              onAddSubitem={handleAddSubitem(itemIndex, item.subitems.length)}
               onUpdate={handleUpdateItem(item)}
               onDelete={handleDeleteItem(item)}
             />
 
-            {/* <ul className={classes.subitems}>
-              {item.subitems.map((subitem, index) => (
-                <li key={index} className={classes.subitemRoot}>
-                  <Typography variant="body1">{subitem.text}</Typography>
-                  <div>
-                    <Button onClick={() => handleRemoveSubitem(item, subitem)}>Remover</Button>
-                  </div>
+            <ul className={classes.subitems}>
+              {item.subitems.map((subitem, subitemIndex) => (
+                <li className={classes.subitem}>
+                  <TopicItem
+                    key={subitemIndex}
+                    item={subitem}
+                    onAddItem={handleAddSubitem(itemIndex, subitemIndex)}
+                    onUpdate={handleUpdateSubitem(item, subitem)}
+                    onDelete={handleDeleteSubitem(item, subitem)}
+                  />
                 </li>
               ))}
-
-              <ItemInput
-                openFormLabel="Adicionar um subitem"
-                onSave={handleSaveSubitem(item)}
-                className={classes.subitemInput}
-              />
-
-            </ul> */}
+            </ul>
           </li>
         ))}
       </ol>

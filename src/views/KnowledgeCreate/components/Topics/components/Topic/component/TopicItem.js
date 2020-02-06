@@ -11,7 +11,13 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const TopicItem = props => {
-  const { item, onUpdate, onDelete, onAddItem } = props
+  const {
+    item,
+    onUpdate,
+    onDelete,
+    onAddItem,
+    onAddSubitem
+  } = props
   const classes = useStyles()
   const isNewRecord = _ => item.id === -1
   const [editMode, setEditMode] = useState(false)
@@ -25,9 +31,6 @@ const TopicItem = props => {
   }
 
   const handleCloseEditMode = () => {
-    if (isNewRecord()) {
-      onDelete()
-    }
     setEditMode(false)
   }
 
@@ -36,12 +39,8 @@ const TopicItem = props => {
   }
 
   const handleUpdate = (text) => {
-    if (text) {
-      onUpdate(text)
-      setEditMode(false)
-    } else {
-      onDelete()
-    }
+    onUpdate(text)
+    setEditMode(false)
  }
 
   const handleDelete = () => {
@@ -64,7 +63,11 @@ const TopicItem = props => {
 
             <div>
               <Button size="small" startIcon={<AddIcon />} onClick={handleAddItem}>item</Button>
-              <Button size="small" startIcon={<AddIcon />} onClick={() => console.log("adicionar sub-item")}>subitem</Button>
+              {
+                onAddSubitem ? (
+                  <Button size="small" startIcon={<AddIcon />} onClick={onAddSubitem}>subitem</Button>
+                ) : null
+              }
               <Button size="small" startIcon={<EditIcon />} onClick={handleOpenEditMode}>Editar</Button>
               <Button size="small" startIcon={<DeleteIcon/>} onClick={handleDelete}>Remover</Button>
             </div>
@@ -78,6 +81,7 @@ const TopicItem = props => {
 TopicItem.propTypes = {
   item: PropTypes.object.isRequired,
   onAddItem: PropTypes.func.isRequired,
+  onAddSubitem: PropTypes.func,
   onUpdate: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
 }
