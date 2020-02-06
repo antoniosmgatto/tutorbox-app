@@ -44,7 +44,7 @@ const knowledge = {
     {
       id: 2,
       title:
-        "Adicione os passos do tutorial e todas as informações complementares necessárias",
+        "Que problema o usuário vai resolver no seu negócio depois que aprender esse conteúdo? Adicione exemplos reais",
       items: [
         {
           id: 1,
