@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { makeStyles } from '@material-ui/styles'
 import { Typography, Button, IconButton } from '@material-ui/core'
 import TopicItem from './component/TopicItem'
+import clsx from 'clsx'
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -30,7 +31,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const Topic = props => {
-  const { topic } = props
+  const { topic, className, ...otherProps } = props
   const classes = useStyles()
   const [state, setState] = useState(topic)
 
@@ -119,7 +120,7 @@ const Topic = props => {
   }
 
   return (
-    <div>
+    <div className={clsx(classes.root, className)} {...otherProps}>
       <Typography variant="h6" color="textSecondary">
         {state.title}
       </Typography>
@@ -160,7 +161,8 @@ const Topic = props => {
 }
 
 Topic.propTypes = {
-  topic: PropTypes.object.isRequired
+  topic: PropTypes.object.isRequired,
+  className: PropTypes.string,
 }
 
 export default Topic

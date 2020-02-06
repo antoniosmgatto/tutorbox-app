@@ -35,18 +35,25 @@ const knowledge = {
             }
           ]
         },
+      ]
+    },
+    {
+      id: 2,
+      title:
+        "Adicione os passos do tutorial e todas as informações complementares necessárias",
+      items: [
         {
-          id: 2,
+          id: 1,
           text:
             "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-          subitems: []
+          subitems: [
+            {
+              id: 10,
+              text:
+                "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+            }
+          ]
         },
-        {
-          id: 3,
-          text:
-            "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-          subitems: []
-        }
       ]
     }
   ],
@@ -86,28 +93,29 @@ const KnowledgeCreate = props => {
 
         <Grid
           item
+          sm={12}
           md={8}
         >
           <Topics topics={knowledge.topics} />
         </Grid>
 
         <Grid
-          container
-          justify="space-between"
-          spacing={2}
           item
+          sm={12}
           md={4}
+          container
+          direction="column"
+          spacing={2}
         >
           <Grid
             item
-            xs={12}
+            className={classes.item}
           >
             <KnowledgeDetails knowledge={knowledge} />
           </Grid>
 
           <Grid
             item
-            xs={12}
           >
             <Attachments attachments={knowledge.attachments} />
           </Grid>

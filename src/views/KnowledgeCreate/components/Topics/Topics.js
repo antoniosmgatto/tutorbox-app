@@ -7,8 +7,11 @@ import Topic from './components/Topic'
 const useStyles = makeStyles(theme => ({
   root: {
     padding: theme.spacing(2, 3),
-    minHeight: 600
+    minHeight: 596
   },
+  topic: {
+    marginBottom: theme.spacing(2)
+  }
 }));
 
 const Topics = props => {
@@ -18,7 +21,11 @@ const Topics = props => {
   return (
     <Paper className={classes.root}>
       {topics.map((topic, index) => (
-        <Topic key={index} topic={topic} />
+        <Topic
+          className={classes.topic}
+          key={index}
+          topic={topic}
+        />
       ))}
     </Paper>
   );
