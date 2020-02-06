@@ -1,11 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Breadcrumbs, Link, Typography, Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
-import { Attachments, KnowledgeDetails, items, Topics } from './components'
+import { Attachments, KnowledgeDetails, KnowledgeName, Topics } from './components'
 
 const useStyles = makeStyles(theme => ({
   root: {},
+  nameWrapper: {
+    margin: theme.spacing(2, 0)
+  }
 }))
 
 const knowledge = {
@@ -78,14 +81,26 @@ const knowledge = {
 
 const KnowledgeCreate = props => {
   const classes = useStyles()
+  const [state, setState] = useState(knowledge)
+
+  const handleNameUpdate = updatedName => {
+    setState({...state, name: updatedName})
+  }
+
   return (
     <>
       <Breadcrumbs aria-label="breadcrumb">
         <Link color="inherit" href="/conhecimentos">
           Conhecimentos
         </Link>
-        <Typography>{knowledge.name}</Typography>
+        <Typography>{state.name}</Typography>
       </Breadcrumbs>
+
+      <KnowledgeName
+        name={state.name}
+        className={classes.nameWrapper}
+        onSave={handleNameUpdate}
+      />
 
       <Grid
         container
@@ -97,7 +112,7 @@ const KnowledgeCreate = props => {
           sm={12}
           md={8}
         >
-          <Topics topics={knowledge.topics} />
+          <Topics topics={state.topics} />
         </Grid>
 
         <Grid
@@ -112,13 +127,13 @@ const KnowledgeCreate = props => {
             item
             className={classes.item}
           >
-            <KnowledgeDetails knowledge={knowledge} />
+            <KnowledgeDetails knowledge={state} />
           </Grid>
 
           <Grid
             item
           >
-            <Attachments attachments={knowledge.attachments} />
+            <Attachments attachments={state.attachments} />
           </Grid>
         </Grid>
 
