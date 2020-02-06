@@ -35,7 +35,6 @@ const ItemInput = props => {
 
   const handlerSave = () => {
     onSave(text)
-    onClose()
   }
 
   const handlerCancel = () => {
