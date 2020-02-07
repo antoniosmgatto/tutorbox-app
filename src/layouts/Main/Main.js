@@ -7,10 +7,10 @@ import { Sidebar } from './components'
 
 const useStyles = makeStyles(theme => ({
   root:  {
-    height: '100vh'
+    minHeight: '100%',
   },
   content: {
-    height: '100vh',
+    backgroundColor: theme.palette.background.default,
     padding: theme.spacing(4),
   },
 }))
@@ -29,7 +29,7 @@ const Main = props => {
   }
 
   return (
-    <div classes={classes.root} >
+    <div classes={classes.root}>
       <Topbar
         onSidebarOpen={handleSidebarOpen}
       />

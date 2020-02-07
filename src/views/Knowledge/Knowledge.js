@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Breadcrumbs, Link, Typography, Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import { Attachments, KnowledgeDetails, KnowledgeName, Topics } from './components'
+import { Comments } from 'components'
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -76,6 +77,57 @@ const knowledge = {
       url:
         "https://images.pexels.com/photos/406014/pexels-photo-406014.jpeg?cs=srgb&dl=adorable-blur-breed-close-up-406014.jpg&fm=jpg"
     }
+  ],
+  comments: [
+    {
+      id: 1,
+      author: {
+        id: 1,
+        displayName: "Antonio Gatto",
+        username: "@antoniomgatto"
+      },
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      text: "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+      comments: [],
+    },
+    {
+       id: 2,
+       author: {
+         id: 2,
+         displayName: "Jean Hansen",
+         username: "@jeanhansen"
+       },
+       createdAt: new Date(),
+       updatedAt: new Date(),
+       text: "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+       comments: [],
+    },
+    {
+      id: 3,
+      author: {
+        id: 1,
+        displayName: "Antonio Gatto",
+        username: "@antoniomgatto"
+      },
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      text: "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+      comments: [
+        {
+          id: 4,
+          author: {
+            id: 2,
+            displayName: "Jean Hansen",
+            username: "@jeanhansen"
+          },
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          text: "@antoniomgatto Lorem Ipsum has been the industry's standard dummy text.",
+          comments: [],
+        }
+      ],
+    },
   ]
 }
 
@@ -137,8 +189,18 @@ const KnowledgeCreate = props => {
           </Grid>
         </Grid>
 
-      </Grid>
+        <Grid
+          item
+          md={8}
+          sm={12}
+        >
 
+          <Comments
+            comments={knowledge.comments}
+          />
+
+        </Grid>
+      </Grid>
     </>
   )
 }
