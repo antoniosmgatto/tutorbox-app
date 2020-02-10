@@ -10,6 +10,9 @@ const useStyles = makeStyles(theme => ({
   root: {
     padding: theme.spacing(1, 0),
   },
+  header: {
+    marginBottom: theme.spacing(1)
+  },
   author: {
     marginRight: theme.spacing(2),
     fontWeight: 500,
@@ -76,7 +79,7 @@ const Comment = props => {
 
   return (
     <div className={clsx(classes.root, className)} {...otherProps}>
-      <Typography variant="subtitle1">
+      <Typography variant="subtitle1" className={classes.header}>
         <span className={classes.author}>{comment.author.displayName}</span>
         {formatDate(comment.updatedAt, 'datetime')}
       </Typography>
@@ -91,8 +94,7 @@ const Comment = props => {
           />
 
         ) : (
-          <div>
-
+          <>
             <TextFormatter comment={comment} />
 
             <div className={classes.actions}>
@@ -106,7 +108,7 @@ const Comment = props => {
                 enableEditAndDeleteButton() ? <Button size="small" onClick={handleDelete}>Remover</Button> : null
               }
             </div>
-          </div>
+          </>
         )
       }
     </div>

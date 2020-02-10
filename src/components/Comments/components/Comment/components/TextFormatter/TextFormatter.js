@@ -6,7 +6,6 @@ const useStyles = makeStyles(theme => ({
   root: {
     ...theme.typography.body1,
     padding: theme.spacing(1, 2),
-    margin: theme.spacing(1, 0),
     display: 'inline-block',
     backgroundColor: theme.palette.common.white,
     borderRadius: 5,
