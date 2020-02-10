@@ -4,7 +4,6 @@ import {
   Typography,
   Paper,
   List,
-  ListItem
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import { KnowledgeDetailsListItem } from './components'

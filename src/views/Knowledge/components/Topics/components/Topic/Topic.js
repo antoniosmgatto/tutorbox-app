@@ -1,7 +1,7 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { makeStyles } from '@material-ui/styles'
-import { Typography, Button, IconButton } from '@material-ui/core'
+import { Typography, Button } from '@material-ui/core'
 import TopicItem from './component/TopicItem'
 import clsx from 'clsx'
 

@@ -36,6 +36,7 @@ const CommentEditor = props => {
     inputRef.current.focus()
     inputRef.current.selectionStart = text.length
     inputRef.current.selectionEnd = text.length
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const handleChange = event => {

@@ -28,6 +28,7 @@ const ItemInput = props => {
     inputRef.current.focus()
     inputRef.current.selectionStart = inputText.length
     inputRef.current.selectionEnd = inputText.length
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const handleChange = event => {

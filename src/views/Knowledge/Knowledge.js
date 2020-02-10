@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import PropTypes from 'prop-types'
 import { Breadcrumbs, Link, Typography, Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import { Attachments, KnowledgeDetails, KnowledgeName, Topics } from './components'

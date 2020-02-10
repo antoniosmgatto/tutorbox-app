@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, Hidden, Button } from '@material-ui/core';
+import { Hidden, Button } from '@material-ui/core';
 import { KnownledgesList, KnownledgesTable } from './components'
 import { makeStyles } from '@material-ui/styles';
 import { useHistory } from 'react-router-dom'

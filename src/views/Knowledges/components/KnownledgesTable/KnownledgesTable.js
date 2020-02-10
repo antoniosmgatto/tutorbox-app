@@ -22,7 +22,7 @@ const useStyles = makeStyles({
 
 const KnownledgesTable = ({ knowledges }) => {
   const classes = useStyles()
-  const [page, setPage] = useState(0)
+  const [page] = useState(0)
 
   const handlerPageChanges = () => {
     console.log('page changed')

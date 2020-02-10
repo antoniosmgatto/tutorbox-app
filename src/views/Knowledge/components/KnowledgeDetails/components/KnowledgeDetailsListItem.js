@@ -4,8 +4,7 @@ import { makeStyles } from '@material-ui/styles'
 import { Typography, ListItem } from '@material-ui/core'
 
 const useStyles = makeStyles(theme => ({
-  root: {},
-  listItem: {
+  root: {
     display: 'flex',
   },
   listItemValue: {
@@ -20,7 +19,6 @@ const KnowledgeDetailsListItem = props => {
     <ListItem
       className={classes.root}
       divider={true}
-      className={classes.listItem}
       disableGutters
     >
 

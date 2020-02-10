@@ -4,14 +4,11 @@ import { makeStyles } from '@material-ui/styles'
 import { Typography, Button } from '@material-ui/core'
 import { formatDate } from 'helpers'
 import clsx from 'clsx'
-import { CommentEditor, TextFormatter } from './components'
+import { CommentaryEditor, CommentaryTextFormatter } from './components'
 
 const useStyles = makeStyles(theme => ({
   root: {
     padding: theme.spacing(1, 0),
-  },
-  header: {
-    marginBottom: theme.spacing(1)
   },
   author: {
     marginRight: theme.spacing(2),
@@ -22,9 +19,9 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const Comment = props => {
+const Commentary = props => {
   const {
-    comment,
+    commentary,
     className,
     onReply,
     onSave,
@@ -35,7 +32,7 @@ const Comment = props => {
   const [openEditMode, setOpenEditMode] = useState(false)
 
   useEffect(() => {
-    if (isNewComment()) {
+    if (isNewCommentary()) {
       handleOpenEditMode()
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -64,39 +61,40 @@ const Comment = props => {
 
   const handleClose = () => {
     handleCloseEditMode()
-    if (isNewComment()) {
+    if (isNewCommentary()) {
       handleDelete()
     }
   }
 
   // TODO implement helper to get current user info
-  const isCommentOwner = () => comment.author.id % 2 === 1 ? true : false
+  const isCommentaryOwner = () => commentary.author.id % 2 === 1 ? true : false
 
-  const isNewComment = () => comment.id === -1
+  const isNewCommentary = () => commentary.id === -1
 
-  const enableReplyButton = () => isCommentOwner() === false
+  const enableReplyButton = () => isCommentaryOwner() === false
 
-  const enableEditAndDeleteButton = () => isCommentOwner()
+  const enableEditAndDeleteButton = () => isCommentaryOwner()
 
   return (
     <div className={clsx(classes.root, className)} {...otherProps}>
-      <Typography variant="subtitle1" className={classes.header}>
-        <span className={classes.author}>{comment.author.displayName}</span>
-        {formatDate(comment.updatedAt, 'datetime')}
+      <Typography variant="subtitle1">
+        <span className={classes.author}>{commentary.author.displayName}</span>
+        {formatDate(commentary.updatedAt, 'datetime')}
       </Typography>
 
       {
         openEditMode ? (
 
-          <CommentEditor
-            comment={comment}
+          <CommentaryEditor
+            commentary={commentary}
             onSave={handleSave}
             onClose={handleClose}
           />
 
         ) : (
-          <>
-            <TextFormatter comment={comment} />
+          <div>
+
+            <CommentaryTextFormatter commentary={commentary} />
 
             <div className={classes.actions}>
               {
@@ -109,19 +107,19 @@ const Comment = props => {
                 enableEditAndDeleteButton() ? <Button size="small" onClick={handleDelete}>Remover</Button> : null
               }
             </div>
-          </>
+          </div>
         )
       }
     </div>
   )
 }
 
-Comment.propTypes = {
-  comment: PropTypes.object.isRequired,
+Commentary.propTypes = {
+  commentary: PropTypes.object.isRequired,
   className: PropTypes.string,
   onReply: PropTypes.func.isRequired,
   onSave: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
 }
 
-export default Comment
+export default Commentary

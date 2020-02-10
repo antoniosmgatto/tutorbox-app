@@ -23,7 +23,7 @@ const useStyles = makeStyles({
 
 const VideosTable = ({ videos }) => {
   const classes = useStyles()
-  const [page, setPage] = useState(0)
+  const [page] = useState(0)
 
   const handlerPageChanges = () => {
     console.log('page changed')

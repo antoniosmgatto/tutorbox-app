@@ -24,7 +24,8 @@ const TopicItem = props => {
 
   useEffect(() => {
     if (isNewRecord()) setEditMode(true)
-  }, [item])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const handleOpenEditMode = () => {
     setEditMode(true)
