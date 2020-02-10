@@ -47,6 +47,8 @@ const ItemInput = props => {
     onClose()
   }
 
+  const disableSave = () => text ? false : true
+
   return (
     <ClickAwayListener onClickAway={handleClickAway}>
       <div className={clsx(classes.root, className)} {...otherOptions}>
@@ -68,6 +70,7 @@ const ItemInput = props => {
             variant="outlined"
             color="primary"
             onClick={handlerSave}
+            disabled={disableSave()}
           >
             Salvar
           </Button>

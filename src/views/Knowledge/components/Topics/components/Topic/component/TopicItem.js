@@ -47,6 +47,13 @@ const TopicItem = props => {
     onDelete()
   }
 
+  const handleClose = () => {
+    handleCloseEditMode()
+    if (isNewRecord()) {
+      handleDelete()
+    }
+  }
+
   return (
     <div>
       {
@@ -54,7 +61,7 @@ const TopicItem = props => {
           <SimpleTextEditor
             inputText={item.text}
             onSave={handleUpdate}
-            onClose={handleCloseEditMode}
+            onClose={handleClose}
           />
         ) : (
           <div>
