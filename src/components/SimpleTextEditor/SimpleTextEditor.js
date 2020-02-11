@@ -9,7 +9,11 @@ import {
 import clsx from 'clsx'
 
 const useStyles = makeStyles(theme => ({
-  root: {},
+  root: {
+  },
+  input: {
+    backgroundColor: theme.palette.common.white
+  },
   actions: {
     marginTop: theme.spacing(1)
   },
@@ -18,8 +22,15 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const ItemInput = props => {
-  const { className, inputText, onSave, onClose, ...otherOptions } = props
+const SimpleTextEditor = props => {
+  const {
+    className,
+    inputText,
+    onSave,
+    onClose,
+    TextFieldProps,
+    ...otherOptions
+  } = props
   const classes = useStyles()
   const inputRef = useRef()
   const [text, setText] = useState(inputText)
@@ -54,13 +65,12 @@ const ItemInput = props => {
     <ClickAwayListener onClickAway={handleClickAway}>
       <div className={clsx(classes.root, className)} {...otherOptions}>
         <TextField
-          className={classes.itemForm}
+          className={classes.input}
+          {...TextFieldProps}
           fullWidth
-          multiline
           rowsMax={3}
           variant="outlined"
           onChange={handleChange}
-          placeholder="Digite aqui..."
           name="text"
           value={text}
           inputRef={inputRef}
@@ -68,7 +78,7 @@ const ItemInput = props => {
         <div className={classes.actions}>
           <Button
             className={classes.saveButton}
-            variant="outlined"
+            variant="contained"
             color="primary"
             onClick={handlerSave}
             disabled={disableSave()}
@@ -82,13 +92,12 @@ const ItemInput = props => {
   )
 }
 
-ItemInput.propTypes = {
+SimpleTextEditor.propTypes = {
   className: PropTypes.string,
   onSave: PropTypes.func.isRequired,
   onClose: PropTypes.func,
-  inputText: PropTypes.string
+  inputText: PropTypes.string,
+  TextFieldProps: PropTypes.object,
 }
 
-ItemInput.defaultProps = {}
-
-export default ItemInput
+export default SimpleTextEditor
