@@ -1,4 +1,5 @@
 export { default as AlertDialog } from './AlertDialog';
+export { default as AttributeEditor } from './AttributeEditor';
 export { default as Comments } from './Comments';
 export { default as HideElement } from './HideElement';
 export { default as RouteWithLayout } from './RouteWithLayout';
