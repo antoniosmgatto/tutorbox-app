@@ -4,7 +4,10 @@ import { makeStyles } from '@material-ui/styles'
 import { Breadcrumbs, Link, Typography, Grid, Button } from '@material-ui/core'
 import { Comments, AttributeEditor } from 'components'
 import { Send } from '@material-ui/icons'
-import VideoDetails from './components/VideoDetails'
+import {
+  KnowledgePreview,
+  VideoDetails
+} from './components'
 
 const video = {
   id: 1,
@@ -18,6 +21,64 @@ const video = {
       name: "Lead Lovers"
     }
   },
+  mainKnowledge: {
+    id: 1,
+    name: "Lançar Nota Fiscal",
+    topics: [
+      {
+        id: 1,
+        title: "Adicione os passos do tutorial e todas as informações complementares necessárias",
+        items: [
+          {
+            id: 1,
+            text: "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+            subitems: [
+              {
+                id: 10,
+                text: "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+              },
+              {
+                id: 11,
+                text: "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+              },
+              {
+                id: 12,
+                text: "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+              }
+            ]
+          },
+          {
+            id: 2,
+            text: "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+            subitems: []
+          },
+          {
+            id: 3,
+            text: "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+            subitems: []
+          },
+          {
+            id: 4,
+            text: "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+            subitems: []
+          },
+        ]
+      },
+      {
+        id: 2,
+        title: "Que problema o usuário vai resolver no seu negócio depois que aprender esse conteúdo? Adicione exemplos reais",
+        items: [{
+          id: 1,
+          text: "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+          subitems: [{
+            id: 10,
+            text: "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+          }]
+        }, ]
+      }
+    ]
+  },
+  knowledges: [],
   createdAt: new Date(),
   updatedAt: new Date(),
   comments: [{
@@ -148,8 +209,9 @@ const Video = props => {
           xs={12}
           className={classes.knowledgeResume}
         >
-          Knowledge view
+          <KnowledgePreview knowledge={video.mainKnowledge} />
         </Grid>
+
         <Grid
           item
           md={4}
