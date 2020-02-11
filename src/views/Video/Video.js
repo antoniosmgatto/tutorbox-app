@@ -4,13 +4,19 @@ import { makeStyles } from '@material-ui/styles'
 import { Breadcrumbs, Link, Typography, Grid, Button } from '@material-ui/core'
 import { Comments, AttributeEditor } from 'components'
 import { Send } from '@material-ui/icons'
+import VideoDetails from './components/VideoDetails'
 
 const video = {
   id: 1,
   title: "Como criar uma Landing Page",
-  status: "finished",
+  status: "draft",
   project: {
-    name: "Lead Lovers App"
+    id: 1,
+    name: "Lead Lovers App",
+    client: {
+      id: 1,
+      name: "Lead Lovers"
+    }
   },
   createdAt: new Date(),
   updatedAt: new Date(),
@@ -155,7 +161,7 @@ const Video = props => {
           <Grid
             item
           >
-            Vídeo Details
+            <VideoDetails video={video} />
           </Grid>
 
           <Grid
