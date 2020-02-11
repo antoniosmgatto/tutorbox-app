@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { makeStyles } from '@material-ui/styles'
 import { Typography } from '@material-ui/core'
-import { getVideoStatusColor } from 'helpers'
+import { getVideoStatusLabel, getVideoStatusColor } from 'helpers'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -12,22 +12,10 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const getLabelFromStatus = status => {
-  let label
-  switch (status) {
-    case 'finished':
-      label = 'Finalizado'
-      break
-    default:
-      throw new Error('Status not found')
-  }
-  return label
-}
-
 const VideoStatus = props => {
   const {status} = props
   const classes = useStyles()
-  const label = getLabelFromStatus(status)
+  const label = getVideoStatusLabel(status)
   const statusColor = getVideoStatusColor(status)
   return (
     <Typography
