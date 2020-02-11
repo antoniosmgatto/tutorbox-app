@@ -6,7 +6,11 @@ import {
   Unrestrict as UnrestrictLayout,
 } from 'layouts'
 import {
-  Knowledges, KnowledgeView, VideosView, Authentication as AuthenticationView
+<<<<<<< HEAD
+  Knowledges, KnowledgeView, VideoView, VideosView, Authentication as AuthenticationView
+=======
+  Knowledges, KnowledgeView, VideoView, VideosView, LoginView
+>>>>>>> adding the new video structure
 } from 'views';
 
 const Routes = () => {
@@ -32,6 +36,12 @@ const Routes = () => {
       exact
       path="/conhecimento/novo"
       component={KnowledgeView}
+      layout={MainLayout}
+    />
+    <RouteWithLayout
+      exact
+      path="/video/novo"
+      component={VideoView}
       layout={MainLayout}
     />
     <RouteWithLayout
