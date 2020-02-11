@@ -1,7 +1,8 @@
 import { colors } from '@material-ui/core'
 
 const colorPerStatus = {
-  "finished": colors.green['500']
+  "draft": colors.grey['500'],
+  "finished": colors.green['500'],
 }
 
 const getVideoStatusColor = status => {
