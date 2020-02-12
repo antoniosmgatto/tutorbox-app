@@ -47,7 +47,7 @@ const SectionPaper = props => {
 
 SectionPaper.propTypes = {
   title: PropTypes.string.isRequired,
-  children: PropTypes.element.isRequired,
+  children: PropTypes.any.isRequired,
   className: PropTypes.string,
 }
 
