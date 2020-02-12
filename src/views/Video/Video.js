@@ -6,7 +6,8 @@ import { Comments, AttributeEditor } from 'components'
 import { Send } from '@material-ui/icons'
 import {
   KnowledgePreview,
-  VideoDetails
+  TeamManager,
+  VideoDetails,
 } from './components'
 
 const video = {
@@ -79,6 +80,20 @@ const video = {
     ]
   },
   knowledges: [],
+  team: [
+    {
+      id: 1,
+      username: "antoniomgatto",
+      displayName: "Antonio Gatto",
+      role: "Tutormaker",
+    },
+    {
+      id: 2,
+      username: "jeamhansen",
+      displayName: "Jean Hansen",
+      role: "Gerente de Conta",
+    }
+  ],
   createdAt: new Date(),
   updatedAt: new Date(),
   comments: [{
@@ -92,7 +107,8 @@ const video = {
     updatedAt: new Date(),
     text: "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
     comments: [],
-  }, {
+  },
+  {
     id: 2,
     author: {
       id: 2,
@@ -103,7 +119,8 @@ const video = {
     updatedAt: new Date(),
     text: "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
     comments: [],
-  }, {
+  },
+  {
     id: 3,
     author: {
       id: 1,
@@ -229,7 +246,7 @@ const Video = props => {
           <Grid
             item
           >
-            Team
+            <TeamManager team={video.team} />
           </Grid>
           <Grid
             item
