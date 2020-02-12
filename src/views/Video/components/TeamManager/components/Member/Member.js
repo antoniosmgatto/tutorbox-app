@@ -22,7 +22,7 @@ const Member = props => {
       divider
     >
       <ListItemText
-        primary={member.displayName}
+        primary={`${member.displayName} (${member.username})`}
         secondary={member.role}
         secondaryTypographyProps={{color: 'textSecondary'}}
       />
