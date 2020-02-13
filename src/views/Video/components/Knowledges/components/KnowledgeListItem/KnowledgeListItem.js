@@ -5,10 +5,12 @@ import {
   ListItem,
   ListItemText
 } from '@material-ui/core'
+import { NavLink } from 'react-router-dom'
 
 const useStyles = makeStyles(theme => ({
   root: {
-    paddingLeft: 0
+    paddingLeft: 0,
+    color: theme.palette.text.primary
   }
 }))
 
@@ -19,7 +21,10 @@ const KnowledgeListItem = props => {
     <ListItem
       {...otherProps}
       className={classes.root}
+      button
       divider
+      to={`/conhecimento/novo`}
+      component={NavLink}
     >
       <ListItemText
         primary={knowledge.name}
