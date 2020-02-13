@@ -1,11 +1,12 @@
 import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Redirect } from 'react-router-dom';
 import { RouteWithLayout } from 'components'
 import {
-  MainLayout
+  MainLayout,
+  Unrestrict as UnrestrictLayout,
 } from 'layouts'
 import {
-  Knowledges, KnowledgeView, VideosView, LoginView
+  Knowledges, KnowledgeView, VideosView, Authentication as AuthenticationView
 } from 'views';
 
 const Routes = () => {
@@ -16,9 +17,10 @@ const Routes = () => {
       path="/"
       to="/conhecimentos"
     />
-    <Route
-      path="/login"
-      component={LoginView}
+    <RouteWithLayout
+      path="/auth"
+      component={AuthenticationView}
+      layout={UnrestrictLayout}
     />
     <RouteWithLayout
       exact
