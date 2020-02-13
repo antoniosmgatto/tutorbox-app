@@ -2,151 +2,14 @@ import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/styles'
 import { Breadcrumbs, Link, Typography, Grid, Button } from '@material-ui/core'
 import { Comments, AttributeEditor } from 'components'
-import { Send } from '@material-ui/icons'
 import {
   KnowledgePreview,
   TeamManager,
   VideoDetails,
   Knowledges,
 } from './components'
-
-const video = {
-  id: 1,
-  title: "Como criar uma Landing Page",
-  status: "draft",
-  project: {
-    id: 1,
-    name: "Lead Lovers App",
-    client: {
-      id: 1,
-      name: "Lead Lovers"
-    }
-  },
-  mainKnowledge: {
-    id: 1,
-    name: "Lançar Nota Fiscal",
-    topics: [
-      {
-        id: 1,
-        title: "Adicione os passos do tutorial e todas as informações complementares necessárias",
-        items: [
-          {
-            id: 1,
-            text: "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-            subitems: [
-              {
-                id: 10,
-                text: "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
-              },
-              {
-                id: 11,
-                text: "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
-              },
-              {
-                id: 12,
-                text: "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
-              }
-            ]
-          },
-          {
-            id: 2,
-            text: "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-            subitems: []
-          },
-          {
-            id: 3,
-            text: "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-            subitems: []
-          },
-          {
-            id: 4,
-            text: "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-            subitems: []
-          },
-        ]
-      },
-      {
-        id: 2,
-        title: "Que problema o usuário vai resolver no seu negócio depois que aprender esse conteúdo? Adicione exemplos reais",
-        items: [{
-          id: 1,
-          text: "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-          subitems: [{
-            id: 10,
-            text: "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
-          }]
-        }, ]
-      }
-    ]
-  },
-  knowledges: [
-    { id: 1, name: "Criar Landing Page" },
-    { id: 2, name: "Alterar Landing Page" }
-  ],
-  team: [
-    {
-      id: 1,
-      username: "antoniomgatto",
-      displayName: "Antonio Gatto",
-      role: "Tutormaker",
-    },
-    {
-      id: 2,
-      username: "jeamhansen",
-      displayName: "Jean Hansen",
-      role: "Gerente de Conta",
-    }
-  ],
-  createdAt: new Date(),
-  updatedAt: new Date(),
-  comments: [{
-    id: 1,
-    author: {
-      id: 1,
-      displayName: "Antonio Gatto",
-      username: "@antoniomgatto"
-    },
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    text: "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-    comments: [],
-  },
-  {
-    id: 2,
-    author: {
-      id: 2,
-      displayName: "Jean Hansen",
-      username: "@jeanhansen"
-    },
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    text: "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-    comments: [],
-  },
-  {
-    id: 3,
-    author: {
-      id: 1,
-      displayName: "Antonio Gatto",
-      username: "@antoniomgatto"
-    },
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    text: "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-    comments: [{
-      id: 4,
-      author: {
-        id: 2,
-        displayName: "Jean Hansen",
-        username: "@jeanhansen"
-      },
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      text: "@antoniomgatto Lorem Ipsum has been the industry's standard dummy text.",
-      comments: [],
-    }],
-  }, ]
-}
+import { dummyVideoPerStatus, getVideoStatusLabel } from 'helpers'
+import { useHistory, useParams } from 'react-router-dom'
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -163,13 +26,42 @@ const useStyles = makeStyles(theme => ({
   comments: {}
 }))
 
+const stages = [
+  'draft',
+  'pre-production',
+  'production',
+  'revision',
+  're-editing',
+  'finished',
+]
+
+const mainActionLabels = {
+  'draft': 'Solicitar vídeo',
+  'pre-production': 'Iniciar produção',
+  'production': 'Enviar para revisão',
+  'revision': 'Revisar',
+  're-editing': 'Enviar para revisão',
+  'finished': '',
+}
+
 const Video = props => {
   const {} = props
+  const { status } = useParams()
   const classes = useStyles()
+  const video = dummyVideoPerStatus(status)
   const [state, setState] = useState(video)
+  const history = useHistory()
+  const mainActionLabel = mainActionLabels[video.status]
+  const isVideoNotFinished = () => video.status !== 'finished'
 
-  const handleSendToPreProduction = () => {
-    console.log('send video to pre production')
+  const nextStage = () => {
+    const index = stages.indexOf(video.status)
+    return stages[index + 1]
+  }
+
+  const handleNextStageClick = () => {
+    const nextUrl = `/video/${nextStage()}`
+    history.push(nextUrl)
   }
 
   const handleUpdateTitle = updatedTitle => {
@@ -211,16 +103,17 @@ const Video = props => {
           md={4}
           xs={12}
         >
-          <div className={classes.mainActionWrapper}>
-            <Button
-              variant="contained"
-              color="primary"
-              startIcon={<Send />}
-              onClick={handleSendToPreProduction}
-              >
-                Pré-Produção
-            </Button>
-          </div>
+          { isVideoNotFinished() &&
+            <div className={classes.mainActionWrapper}>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleNextStageClick}
+                >
+                  {mainActionLabel}
+              </Button>
+            </div>
+          }
         </Grid>
 
         <Grid

@@ -40,7 +40,7 @@ const Routes = () => {
     />
     <RouteWithLayout
       exact
-      path="/video/novo"
+      path="/video/:status"
       component={VideoView}
       layout={MainLayout}
     />
