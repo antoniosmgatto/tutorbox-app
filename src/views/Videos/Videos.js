@@ -29,7 +29,7 @@ const Videos = () => {
   const history = useHistory()
 
   const handleNewVideo = () => {
-    history.push('/video/novo')
+    history.push('/video/draft')
   }
   return (
     <section className={classes.root}>

@@ -1,6 +1,10 @@
 const labelPerStatus = {
   "draft": "Rascunho",
-  "finished": "Finalizado",
+  "pre-production": "Pré-Produção",
+  "production": "Produção",
+  "revision": "Revisão",
+  "re-editing": "Aplicando Correções",
+  "finished": "Aprovado",
 }
 
 const getVideoStatusLabel = status => {
