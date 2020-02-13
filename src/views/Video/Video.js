@@ -7,6 +7,7 @@ import {
   KnowledgePreview,
   TeamManager,
   VideoDetails,
+  Knowledges,
 } from './components'
 
 const video = {
@@ -78,7 +79,10 @@ const video = {
       }
     ]
   },
-  knowledges: [],
+  knowledges: [
+    { id: 1, name: "Criar Landing Page" },
+    { id: 2, name: "Alterar Landing Page" }
+  ],
   team: [
     {
       id: 1,
@@ -250,7 +254,7 @@ const Video = props => {
           <Grid
             item
           >
-            Related knowledges
+            <Knowledges knowledges={video.knowledges} />
           </Grid>
         </Grid>
         <Grid
