@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { makeStyles } from '@material-ui/styles'
 import { SectionPaper } from 'components'
 import { Button, List } from '@material-ui/core'
-import { KnowledgeListItem } from './components'
+import { KnowledgeListItem, KnowledgeSearch } from './components'
 import { Alert } from '@material-ui/lab'
+import Video from 'views/Video/Video'
+import { removeArrayElement } from 'helpers'
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -20,17 +22,31 @@ const useStyles = makeStyles(theme => ({
 const Knowledges = props => {
   const { knowledges } = props
   const classes = useStyles()
+  const [state, setState] = useState(knowledges)
+  const [buttonElement, setButtonElement] = useState(null)
 
-  const handleClick = () => {
+  const handleManagerClick = event => {
+    setButtonElement(event.target)
+  }
 
+  const handleSearchClose = () => {
+    setButtonElement(null)
+  }
+
+  const handleKnowledgeSelected = knowledge => {
+    setState([...state, knowledge])
+  }
+
+  const handleKnowledgeRemoved = knowledge => {
+    setState(removeArrayElement(state, knowledge))
   }
 
   return (
     <SectionPaper title="Conhecimentos" className={classes.root}>
 
-    { knowledges.length > 0 ? (
+    { state.length > 0 ? (
         <List>
-          { knowledges.map(knowledge => (
+          { state.map(knowledge => (
               <KnowledgeListItem
                 key={knowledge.id}
                 knowledge={knowledge}
@@ -50,10 +66,19 @@ const Knowledges = props => {
       <div className={classes.actionWrapper}>
         <Button
           variant="text"
-          onClick={handleClick}
+          onClick={handleManagerClick}
         >
           Gerenciar
         </Button>
+
+        <KnowledgeSearch
+          anchorEl={buttonElement}
+          selected={state}
+          onClose={handleSearchClose}
+          onSelect={handleKnowledgeSelected}
+          onRemove={handleKnowledgeRemoved}
+        />
+
       </div>
     </SectionPaper>
   )
