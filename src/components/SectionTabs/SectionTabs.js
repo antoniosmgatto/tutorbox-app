@@ -4,7 +4,10 @@ import { makeStyles } from '@material-ui/styles'
 import { Paper, Tabs, Tab } from '@material-ui/core'
 
 const useStyles = makeStyles(theme => ({
-  root: {}
+  root: {},
+  tab: {
+    padding: theme.spacing(0, 3),
+  }
 }))
 
 const SectionTabs = props => {
@@ -32,7 +35,12 @@ const SectionTabs = props => {
       </Tabs>
 
       {tabs.map((tab, index) => (
-        <div hidden={activedTab !== index}>{tab.component}</div>
+        <div
+          className={classes.tab}
+          hidden={activedTab !== index}
+        >
+          {tab.component}
+        </div>
       ))}
 
     </Paper>
