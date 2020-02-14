@@ -5,7 +5,6 @@ import { Paper, Typography, Divider } from '@material-ui/core'
 
 const useStyles = makeStyles(theme => ({
   root: {
-    padding: theme.spacing(2),
     minHeight: 600,
   },
   topics: {
