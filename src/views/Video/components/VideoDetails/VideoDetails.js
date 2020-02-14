@@ -4,11 +4,14 @@ import {
   Typography,
   Paper,
   List,
+  IconButton,
+  Link,
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import { VideoDetailsListItem } from './components'
 import { formatDate } from 'helpers'
 import { VideoStatus } from 'components'
+import { Note } from '@material-ui/icons'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -26,6 +29,7 @@ const VideoDetails = props => {
         }
       },
       status,
+      scriptUrl,
       createdAt,
       updatedAt,
     }
@@ -35,6 +39,7 @@ const VideoDetails = props => {
     { label: "Projeto", value: projectName },
     { label: "Cliente", value: clientName },
     { label: "Status", value: <VideoStatus status={status}/> },
+    { label: "Roteiro", value: (scriptUrl ? <Link href={scriptUrl} variant="" target="_blank" rel="noopener">Visualizar</Link>: 'N/A') },
     { label: "Data da criação", value: formatDate(createdAt, 'datetime') },
     { label: "Última atualização", value: formatDate(updatedAt, 'datetime') },
   ]
