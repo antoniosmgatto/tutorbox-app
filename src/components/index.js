@@ -5,5 +5,6 @@ export { default as FloatingSearch } from './FloatingSearch'
 export { default as HideElement } from './HideElement';
 export { default as RouteWithLayout } from './RouteWithLayout';
 export { default as SectionPaper } from './SectionPaper';
+export { default as SectionTabs } from './SectionTabs';
 export { default as SimpleTextEditor } from './SimpleTextEditor';
 export { default as VideoStatus } from './VideoStatus';
