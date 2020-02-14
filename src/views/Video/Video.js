@@ -7,6 +7,7 @@ import {
   TeamManager,
   VideoDetails,
   Knowledges,
+  VideoTab,
 } from './components'
 import { dummyVideoPerStatus, getVideoStatusLabel } from 'helpers'
 import { useHistory, useParams } from 'react-router-dom'
@@ -134,10 +135,10 @@ const Video = props => {
                   [
                     {
                       'title': 'Vídeo',
-                      'component': <div>Vídeo</div>,
+                      'component': <VideoTab video={video} />,
                     },
                     {
-                      'title': 'Conhecimentos',
+                      'title': 'Conhecimento',
                       'component': <KnowledgePreview knowledge={video.mainKnowledge} />
                     }
                   ]

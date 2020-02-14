@@ -2,6 +2,8 @@ const video = {
   id: 1,
   title: "Como criar uma Landing Page",
   status: "draft",
+  scriptUrl: null,
+  file: null,
   project: {
     id: 1,
     name: "Lead Lovers App",
@@ -142,8 +144,14 @@ const dummyVideoPerStatus = status => {
   let updatedValues = { status: status }
 
   switch (status) {
-    case "production":
-      // updatedValues = {}
+    case "revision":
+      updatedValues = {
+        ...updatedValues,
+        ...{
+          "scriptUrl": "https://docs.google.com/document/d/1_8keuEp9yG3LNxqCgev2z_uGfEM5tB0mZON1qXoWhR4/edit?usp=sharing",
+          // "file": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4"
+        }
+      }
       break
   }
 
