@@ -38,42 +38,34 @@ const KnownledgePreview = props => {
   const { knowledge } = props
   const classes = useStyles()
   return (
-    <Paper
-      className={classes.root}
-    >
-      <section>
-        <header>
-          <Typography variant="h6" color="textSecondary">Conteúdo</Typography>
-        </header>
+    <div className={classes.root}>
+      <ul className={classes.topics}>
+        {knowledge.topics.map(topic => (
+          <li key={topic.id} className={classes.topic}>
 
-        <ul className={classes.topics}>
-          {knowledge.topics.map(topic => (
-            <li key={topic.id} className={classes.topic}>
+            <p className={classes.topicTitle}>{topic.title}</p>
 
-              <p className={classes.topicTitle}>{topic.title}</p>
+            <ol className={classes.items}>
+              {topic.items.map(item => (
+                <li key={item.id} className={classes.item}>
 
-              <ol className={classes.items}>
-                {topic.items.map(item => (
-                  <li key={item.id} className={classes.item}>
+                  <Typography variant="body1">{item.text}</Typography>
 
-                    <Typography variant="body1">{item.text}</Typography>
+                  <ul className={classes.subitems}>
+                    {item.subitems.map(subitem => (
+                      <li key={subitem.id} className={classes.subitem}>
+                        <Typography variant="body1">{subitem.text}</Typography>
+                      </li>
+                    ))}
+                  </ul>
 
-                    <ul className={classes.subitems}>
-                      {item.subitems.map(subitem => (
-                        <li key={subitem.id} className={classes.subitem}>
-                          <Typography variant="body1">{subitem.text}</Typography>
-                        </li>
-                      ))}
-                    </ul>
-
-                  </li>
-                ))}
-              </ol>
-            </li>
-          ))}
-        </ul>
-      </section>
-    </Paper>
+                </li>
+              ))}
+            </ol>
+          </li>
+        ))}
+      </ul>
+    </div>
   )
 }
 

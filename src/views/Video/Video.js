@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/styles'
-import { Breadcrumbs, Link, Typography, Grid, Button } from '@material-ui/core'
-import { Comments, AttributeEditor } from 'components'
+import { Breadcrumbs, Link, Typography, Grid, Button, Paper, Tabs, Tab } from '@material-ui/core'
+import { Comments, AttributeEditor, SectionPaper, SectionTabs } from 'components'
 import {
   KnowledgePreview,
   TeamManager,
@@ -50,9 +50,11 @@ const Video = props => {
   const classes = useStyles()
   const video = dummyVideoPerStatus(status)
   const [state, setState] = useState(video)
+  const [activedTab, setActivedTab] = useState(0)
   const history = useHistory()
   const mainActionLabel = mainActionLabels[video.status]
   const isVideoNotFinished = () => video.status !== 'finished'
+  const enableTabsForContent = () => !['draft', 'pre-production'].includes(video.status)
 
   const nextStage = () => {
     const index = stages.indexOf(video.status)
@@ -66,6 +68,10 @@ const Video = props => {
 
   const handleUpdateTitle = updatedTitle => {
     setState({...state, title: updatedTitle})
+  }
+
+  const handleTabChange = (_event, tabIndex) => {
+    setActivedTab(tabIndex)
   }
 
   return (
@@ -122,7 +128,26 @@ const Video = props => {
           xs={12}
           className={classes.knowledgeResume}
         >
-          <KnowledgePreview knowledge={video.mainKnowledge} />
+           { enableTabsForContent() ? (
+              <SectionTabs
+                tabs={
+                  [
+                    {
+                      'title': 'Vídeo',
+                      'component': <div>Vídeo</div>,
+                    },
+                    {
+                      'title': 'Conhecimentos',
+                      'component': <KnowledgePreview knowledge={video.mainKnowledge} />
+                    }
+                  ]
+                }
+              />
+            ) : (
+              <SectionPaper title="Conhecimento">
+                <KnowledgePreview knowledge={video.mainKnowledge} />
+              </SectionPaper>
+            )}
         </Grid>
 
         <Grid
