@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { makeStyles } from '@material-ui/styles'
 import { Grid } from '@material-ui/core'
-import { useState } from 'react'
 import { ScriptInput, VideoInput, VideoShow } from './components'
 
 const useStyles = makeStyles(theme => ({
@@ -18,21 +17,19 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const VideoTab = props => {
-  const { video } = props
-  const [state, setState] = useState(video)
+  const { video, onCreateScript, onVideoUpload } = props
   const classes = useStyles()
-  const showCreateScriptButton = state.scriptUrl === null
-  const showUploadVideoButton = state.scriptUrl && state.file === null
-  const showVideoPlayer = state.file !== null
+  const showCreateScriptButton = video.status === 'production' && video.scriptUrl === null
+  const showUploadVideoButton = video.status === 'production' && video.scriptUrl && video.file === null
+  const showVideo = video.file !== null
+  const canUploadVideo = ['production', 're-editing'].includes(video.status)
 
-  const handleCreateScriptClick = () => {
-    console.log("TODO create script")
-    setState({...state, scriptUrl: 'https://docs.google.com/document/d/1_8keuEp9yG3LNxqCgev2z_uGfEM5tB0mZON1qXoWhR4/edit?usp=sharing' })
+  const handleCreateScript = () => {
+    onCreateScript()
   }
 
   const handleVideoUpload = file => {
-    console.log("TODO", file, "uploaded the file")
-    setState({...state, file: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4' })
+    onVideoUpload(file)
   }
 
   return (
@@ -48,11 +45,11 @@ const VideoTab = props => {
         <div
           className={classes.root}
         >
-          { showCreateScriptButton ? <ScriptInput onClick={handleCreateScriptClick} /> : null }
+          { showCreateScriptButton ? <ScriptInput onClick={handleCreateScript} /> : null }
 
           { showUploadVideoButton ? <VideoInput onClick={handleVideoUpload} /> : null }
 
-          { showVideoPlayer ? <VideoShow file={state.file} onUpload={handleVideoUpload} /> : null}
+          { showVideo ? <VideoShow file={video.file} enableUpload={canUploadVideo} onUpload={handleVideoUpload} /> : null}
         </div>
       </Grid>
     </Grid>
@@ -60,7 +57,9 @@ const VideoTab = props => {
 }
 
 VideoTab.propTypes = {
-  video: PropTypes.object.isRequired
+  video: PropTypes.object.isRequired,
+  onCreateScript: PropTypes.func.isRequired,
+  onVideoUpload: PropTypes.func.isRequired,
 }
 
 export default VideoTab

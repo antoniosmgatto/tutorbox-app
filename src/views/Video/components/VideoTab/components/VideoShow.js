@@ -17,14 +17,13 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const VideoShow = props => {
-  const { file, onUpload, className, ...otherProps } = props
+  const { file, onUpload, className, enableUpload, ...otherProps } = props
   const classes = useStyles()
-
-  console.log('file', file)
 
   const handleUpload = file => {
     onUpload(file)
   }
+
   return (
     <div className={clsx(classes.root, className)} {...otherProps}>
       <VideoPlayer
@@ -35,11 +34,12 @@ const VideoShow = props => {
         sources={[{ src: file, type: 'video/mp4' }]}
       />
       <div className={classes.options}>
-        <FileInput
-          inputProps={{ accept: 'video/mp4' }}
-          buttonProps={{ variant: 'contained', startIcon: <CloudUploadIcon /> }}
-          onChange={handleUpload}
-        />
+        { enableUpload && <FileInput
+                            inputProps={{ accept: 'video/mp4' }}
+                            buttonProps={{ variant: 'contained', startIcon: <CloudUploadIcon /> }}
+                            onChange={handleUpload}
+                          />
+        }
       </div>
     </div>
   )
@@ -47,7 +47,12 @@ const VideoShow = props => {
 
 VideoShow.propTypes = {
   file: PropTypes.string.isRequired,
-  onUpload: PropTypes.func.isRequired
+  onUpload: PropTypes.func.isRequired,
+  enableUpload: PropTypes.bool
+}
+
+VideoShow.defaultProps = {
+  enableUpload: false
 }
 
 export default VideoShow
