@@ -1,11 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { makeStyles } from '@material-ui/styles'
-import { Grid, Typography, Button } from '@material-ui/core'
-import { FileInput } from 'components'
+import { Grid } from '@material-ui/core'
 import { useState } from 'react'
-import VideoPlayer from '../VideoPlayer'
-import { ScriptInput, VideoInput } from './components'
+import { ScriptInput, VideoInput, VideoShow } from './components'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -15,11 +13,6 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2, 0),
     minHeight: 443,
   },
-  videoActions: {
-    display: 'flex',
-    marginTop: theme.spacing(1)
-  },
-  player: {}
 }))
 
 const VideoTab = props => {
@@ -28,6 +21,7 @@ const VideoTab = props => {
   const classes = useStyles()
   const showCreateScriptButton = state.scriptUrl === null
   const showUploadVideoButton = state.scriptUrl && state.file === null
+  const showVideoPlayer = state.file !== null
 
   const handleCreateScriptClick = () => {
     console.log("TODO create script")
@@ -52,30 +46,11 @@ const VideoTab = props => {
         <div
           className={classes.root}
         >
-
           { showCreateScriptButton ? <ScriptInput onClick={handleCreateScriptClick} /> : null }
 
-           { showUploadVideoButton ? <VideoInput onClick={handleVideoUpload} /> : null
-          }
+          { showUploadVideoButton ? <VideoInput onClick={handleVideoUpload} /> : null }
 
-          { video.file &&
-            <>
-              {console.log(video)}
-              <VideoPlayer
-                className={classes.player}
-                autoPlay={true}
-                controls={true}
-                fluid={true}
-                sources={[{ src: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4', type: 'video/mp4' }]}
-              />
-              {/* <div className={classes.videoActions}>
-                <FileInput
-                  buttonProps={{ variant: 'contained', startIcon: <CloudUploadIcon /> }}
-                  onChange={handleFileUpload}
-                />
-              </div> */}
-            </>
-          }
+          { showVideoPlayer ? <VideoShow file={state.file} onUpload={handleVideoUpload} /> : null}
         </div>
       </Grid>
     </Grid>
