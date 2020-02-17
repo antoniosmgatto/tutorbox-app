@@ -37,6 +37,7 @@ const VideoInput = props => {
 
       <FileInput
         className={classes.button}
+        inputProps={{ accept: 'video/mp4' }}
         buttonProps={{ variant: 'contained', startIcon: <CloudUploadIcon /> }}
         onChange={handleClick}
       />
