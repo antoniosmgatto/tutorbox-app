@@ -149,7 +149,7 @@ const dummyVideoPerStatus = status => {
         ...updatedValues,
         ...{
           "scriptUrl": "https://docs.google.com/document/d/1_8keuEp9yG3LNxqCgev2z_uGfEM5tB0mZON1qXoWhR4/edit?usp=sharing",
-          // "file": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4"
+          "file": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4"
         }
       }
       break

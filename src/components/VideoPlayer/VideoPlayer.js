@@ -1,15 +1,9 @@
 import React from 'react'
 import 'video.js/dist/video-js.css'
 import videojs from 'video.js'
-import { makeStyles } from '@material-ui/styles';
-import clsx from 'clsx';
 
-const useStyles = makeStyles((theme) => ({
-  root: {}
-}))
 class VideoPlayer extends React.Component {
   componentDidMount() {
-    this.classes = useStyles()
     // instantiate Video.js
     this.player = videojs(this.videoNode, this.props, function onPlayerReady() {
       console.log('onPlayerReady', this)
@@ -28,9 +22,9 @@ class VideoPlayer extends React.Component {
   // see https://github.com/videojs/video.js/pull/3856
   render() {
     return (
-      <div className={clsx(this.classes.root, this.props.className)}>
+      <div className={this.props.className}>
         <div data-vjs-player>
-          <video ref={ node => this.videoNode = node } className="video-js"></video>
+          <video ref={ node => this.videoNode = node } className="video-js vjs-big-play-centered"></video>
         </div>
       </div>
     )
