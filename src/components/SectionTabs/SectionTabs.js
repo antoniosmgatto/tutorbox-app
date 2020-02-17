@@ -29,13 +29,14 @@ const SectionTabs = props => {
       >
 
         {tabs.map(tab => (
-          <Tab label={tab.title} />
+          <Tab key={tab.title} label={tab.title} />
         ))}
 
       </Tabs>
 
       {tabs.map((tab, index) => (
         <div
+          key={tab.title}
           className={classes.tab}
           hidden={activedTab !== index}
         >
