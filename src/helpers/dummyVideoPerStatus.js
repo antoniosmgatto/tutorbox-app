@@ -4,6 +4,7 @@ const video = {
   status: "draft",
   scriptUrl: null,
   file: null,
+  todolist: [],
   project: {
     id: 1,
     name: "Lead Lovers App",
@@ -144,6 +145,19 @@ const dummyVideoPerStatus = status => {
   let updatedValues = { status: status }
 
   switch (status) {
+    case "finished":
+    case "re-editing":
+      updatedValues = {
+        ...updatedValues,
+        ...{
+          todolist: [
+            { id: 1, text: 'Alterar título', time: null },
+            { id: 2, text: 'Alterar Fonte', time: 10 },
+            { id: 3, text: 'Troca termo "X" por termo "Y" na narração', time: 20 },
+            { id: 4, text: 'Atualizar vídeo com o novo encerramento', time: 100 },
+          ]
+        }
+      }
     case "revision":
       updatedValues = {
         ...updatedValues,
@@ -152,7 +166,6 @@ const dummyVideoPerStatus = status => {
           "file": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4"
         }
       }
-      break
   }
 
   const updatedVideo = {

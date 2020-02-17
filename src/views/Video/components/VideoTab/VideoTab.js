@@ -45,11 +45,11 @@ const VideoTab = props => {
         <div
           className={classes.root}
         >
-          { showCreateScriptButton ? <ScriptInput onClick={handleCreateScript} /> : null }
+          { showCreateScriptButton && <ScriptInput onClick={handleCreateScript} /> }
 
-          { showUploadVideoButton ? <VideoInput onClick={handleVideoUpload} /> : null }
+          { showUploadVideoButton && <VideoInput onClick={handleVideoUpload} /> }
 
-          { showVideo ? <VideoShow file={video.file} enableUpload={canUploadVideo} onUpload={handleVideoUpload} /> : null}
+          { showVideo && <VideoShow video={video} enableUpload={canUploadVideo} onUpload={handleVideoUpload} /> }
         </div>
       </Grid>
     </Grid>
