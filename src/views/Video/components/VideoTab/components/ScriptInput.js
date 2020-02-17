@@ -11,7 +11,10 @@ const useStyles = makeStyles(theme => ({
   },
   message: {},
   button: {
-    marginTop: theme.spacing(6)
+    marginTop: theme.spacing(2),
+    [theme.breakpoints.up('md')]: {
+      marginTop: theme.spacing(6)
+    }
   },
 }))
 
