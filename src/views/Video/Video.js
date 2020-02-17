@@ -51,7 +51,6 @@ const Video = props => {
   const classes = useStyles()
   const video = dummyVideoPerStatus(status)
   const [state, setState] = useState(video)
-  const [activedTab, setActivedTab] = useState(0)
   const history = useHistory()
   const mainActionLabel = mainActionLabels[video.status]
   const isVideoNotFinished = () => video.status !== 'finished'
@@ -69,10 +68,6 @@ const Video = props => {
 
   const handleUpdateTitle = updatedTitle => {
     setState({...state, title: updatedTitle})
-  }
-
-  const handleTabChange = (_event, tabIndex) => {
-    setActivedTab(tabIndex)
   }
 
   return (

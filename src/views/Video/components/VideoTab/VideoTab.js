@@ -2,22 +2,24 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { makeStyles } from '@material-ui/styles'
 import { Grid, Typography, Button } from '@material-ui/core'
-import { CloudUpload as CloudUploadIcon, NoteAdd as NoteAddIcon } from '@material-ui/icons'
 import { FileInput } from 'components'
 import { useState } from 'react'
+import VideoPlayer from '../VideoPlayer'
+import { ScriptInput, VideoInput } from './components'
 
 const useStyles = makeStyles(theme => ({
   root: {
-    textAlign: 'center',
-    padding: theme.spacing(12, 0)
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: theme.spacing(2, 0),
+    minHeight: 443,
   },
-  message: {},
-  button: {
-    marginTop: theme.spacing(6)
+  videoActions: {
+    display: 'flex',
+    marginTop: theme.spacing(1)
   },
-  scriptInfo: {
-    marginTop: theme.spacing(8)
-  }
+  player: {}
 }))
 
 const VideoTab = props => {
@@ -32,8 +34,8 @@ const VideoTab = props => {
     setState({...state, scriptUrl: 'https://docs.google.com/document/d/1_8keuEp9yG3LNxqCgev2z_uGfEM5tB0mZON1qXoWhR4/edit?usp=sharing' })
   }
 
-  const handleFileUpload = file => {
-    console.log("TODO", file, " upload the file")
+  const handleVideoUpload = file => {
+    console.log("TODO", file, "uploaded the file")
     setState({...state, file: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4' })
   }
 
@@ -44,57 +46,35 @@ const VideoTab = props => {
     >
       <Grid
         item
-        md={8}
+        md={12}
         xs={12}
       >
         <div
           className={classes.root}
         >
 
-          { showCreateScriptButton ? (
-            <>
-              <Typography
-                className={classes.message}
-                variant="h4"
-                component="p"
-                color="textSecondary"
-              >
-                Crie o roteiro do vídeo
-              </Typography>
+          { showCreateScriptButton ? <ScriptInput onClick={handleCreateScriptClick} /> : null }
 
-              <Typography color="textSecondary"> Você será redirecionado para o Google Drive</Typography>
-
-              <Button
-                className={classes.button}
-                variant="contained"
-                startIcon={<NoteAddIcon />}
-                onClick={handleCreateScriptClick}
-              >
-                Criar Roteiro
-              </Button>
-
-            </>
-            ) : null
+           { showUploadVideoButton ? <VideoInput onClick={handleVideoUpload} /> : null
           }
 
-           { showUploadVideoButton ? (
+          { video.file &&
             <>
-              <Typography
-                className={classes.message}
-                variant="h4"
-                component="p"
-                color="textSecondary"
-              >
-                Faça o upload do vídeo
-              </Typography>
-
-              <FileInput
-                className={classes.button}
-                buttonProps={{ variant: 'contained', startIcon: <CloudUploadIcon /> }}
-                onChange={handleFileUpload}
+              {console.log(video)}
+              <VideoPlayer
+                className={classes.player}
+                autoPlay={true}
+                controls={true}
+                fluid={true}
+                sources={[{ src: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4', type: 'video/mp4' }]}
               />
+              {/* <div className={classes.videoActions}>
+                <FileInput
+                  buttonProps={{ variant: 'contained', startIcon: <CloudUploadIcon /> }}
+                  onChange={handleFileUpload}
+                />
+              </div> */}
             </>
-            ) : null
           }
         </div>
       </Grid>
