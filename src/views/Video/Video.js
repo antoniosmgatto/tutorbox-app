@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/styles'
-import { Breadcrumbs, Link, Typography, Grid, Button, Paper, Tabs, Tab } from '@material-ui/core'
+import { Breadcrumbs, Link, Typography, Grid, Button } from '@material-ui/core'
 import { Comments, AttributeEditor, SectionPaper, SectionTabs } from 'components'
 import {
   KnowledgePreview,
@@ -9,7 +9,7 @@ import {
   Knowledges,
   VideoTab,
 } from './components'
-import { dummyVideoPerStatus, getVideoStatusLabel } from 'helpers'
+import { dummyVideoPerStatus } from 'helpers'
 import { useHistory, useParams } from 'react-router-dom'
 
 const useStyles = makeStyles(theme => ({
