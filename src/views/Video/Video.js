@@ -64,29 +64,38 @@ const mainActionLabels = {
   'finished': '',
 }
 
-const Video = props => {
-  const {} = props
+const Video = _props => {
   const { status } = useParams()
   const classes = useStyles()
-  const video = dummyVideoPerStatus(status)
-  const [state, setState] = useState(video)
+  const [state, setState] = useState(dummyVideoPerStatus(status))
   const history = useHistory()
-  const mainActionLabel = mainActionLabels[video.status]
-  const isVideoNotFinished = () => video.status !== 'finished'
-  const enableTabsForContent = () => !['draft', 'pre-production'].includes(video.status)
+  const mainActionLabel = mainActionLabels[state.status]
+  const isVideoNotFinished = () => state.status !== 'finished'
+  const enableTabsForContent = () => !['draft', 'pre-production'].includes(state.status)
 
   const nextStage = () => {
-    const index = stages.indexOf(video.status)
+    const index = stages.indexOf(state.status)
     return stages[index + 1]
   }
 
-  const handleNextStageClick = () => {
+  const handleNextStage = () => {
     const nextUrl = `/video/${nextStage()}`
     history.push(nextUrl)
+    setState(dummyVideoPerStatus(nextStage()))
   }
 
   const handleUpdateTitle = updatedTitle => {
     setState({...state, title: updatedTitle})
+  }
+
+  const handleCreateScript = () => {
+    console.log("TODO create script")
+    setState({...state, scriptUrl: 'https://docs.google.com/document/d/1_8keuEp9yG3LNxqCgev2z_uGfEM5tB0mZON1qXoWhR4/edit?usp=sharing' })
+  }
+
+  const handleVideoUpload = file => {
+    console.log("TODO", file, "uploaded the file")
+    setState({...state, file: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4' })
   }
 
   return (
@@ -129,7 +138,7 @@ const Video = props => {
               <Button
                 variant="contained"
                 color="primary"
-                onClick={handleNextStageClick}
+                onClick={handleNextStage}
                 >
                   {mainActionLabel}
               </Button>
@@ -156,20 +165,20 @@ const Video = props => {
             <Grid
               item
             >
-              <VideoDetails video={video} />
+              <VideoDetails video={state} />
             </Grid>
 
             <Grid
               className={classes.team}
               item
             >
-              <TeamManager team={video.team} />
+              <TeamManager team={state.team} />
             </Grid>
             <Grid
               className={classes.knowledges}
               item
             >
-              <Knowledges knowledges={video.knowledges} />
+              <Knowledges knowledges={state.knowledges} />
             </Grid>
           </Grid>
 
@@ -190,18 +199,18 @@ const Video = props => {
                       [
                         {
                           'title': 'Vídeo',
-                          'component': <VideoTab video={video} />,
+                          'component': <VideoTab video={state} onCreateScript={handleCreateScript} onVideoUpload={handleVideoUpload} />,
                         },
                         {
                           'title': 'Conhecimento',
-                          'component': <KnowledgePreview knowledge={video.mainKnowledge} />
+                          'component': <KnowledgePreview knowledge={state.mainKnowledge} />
                         }
                       ]
                     }
                   />
                 ) : (
                   <SectionPaper title="Conhecimento">
-                    <KnowledgePreview knowledge={video.mainKnowledge} />
+                    <KnowledgePreview knowledge={state.mainKnowledge} />
                   </SectionPaper>
                 )}
             </Grid>
@@ -211,7 +220,7 @@ const Video = props => {
               xs={12}
               className={classes.comments}
             >
-              <Comments comments={video.comments} />
+              <Comments comments={state.comments} />
             </Grid>
           </Grid>
         </Grid>
