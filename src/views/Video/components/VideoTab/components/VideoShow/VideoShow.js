@@ -4,21 +4,25 @@ import { makeStyles } from '@material-ui/styles'
 import clsx from 'clsx'
 import { VideoPlayer, FileInput } from 'components'
 import { CloudUpload as CloudUploadIcon } from '@material-ui/icons'
+import { TodolistAlert } from './components'
 
 const useStyles = makeStyles(theme => ({
   root: {
     width: '100%',
     height: '100%'
   },
+  player: {
+    margin: theme.spacing(2, 0)
+  },
   options: {
     display: 'flex',
-    marginTop: theme.spacing(1)
   },
 }))
 
 const VideoShow = props => {
-  const { file, onUpload, className, enableUpload, ...otherProps } = props
+  const { video, onUpload, className, enableUpload, ...otherProps } = props
   const classes = useStyles()
+  const showAlert = ['revision', 're-editing'].includes(video.status) && video.todolist.length > 0
 
   const handleUpload = file => {
     onUpload(file)
@@ -26,12 +30,16 @@ const VideoShow = props => {
 
   return (
     <div className={clsx(classes.root, className)} {...otherProps}>
+      <div>
+        { showAlert && <TodolistAlert count={video.todolist.length} />  }
+      </div>
+
       <VideoPlayer
         className={classes.player}
         autoPlay={true}
         controls={true}
         fluid={true}
-        sources={[{ src: file, type: 'video/mp4' }]}
+        sources={[{ src: video.file, type: 'video/mp4' }]}
       />
       <div className={classes.options}>
         { enableUpload && <FileInput
@@ -46,7 +54,7 @@ const VideoShow = props => {
 }
 
 VideoShow.propTypes = {
-  file: PropTypes.string.isRequired,
+  video: PropTypes.object.isRequired,
   onUpload: PropTypes.func.isRequired,
   enableUpload: PropTypes.bool
 }
