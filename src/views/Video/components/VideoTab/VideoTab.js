@@ -11,7 +11,9 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'center',
     alignItems: 'center',
     padding: theme.spacing(2, 0),
-    minHeight: 443,
+    [theme.breakpoints.up('md')]: {
+      minHeight: 443
+    }
   },
 }))
 

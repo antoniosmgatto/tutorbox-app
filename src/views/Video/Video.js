@@ -23,8 +23,27 @@ const useStyles = makeStyles(theme => ({
       justifyContent: 'flex-end'
     }
   },
-  knowledgeResume: {},
-  comments: {}
+  leftColumn: {
+    paddingTop: theme.spacing(2),
+    [theme.breakpoints.up('md')]: {
+      paddingTop: 0,
+      paddingRight: theme.spacing(1)
+    }
+  },
+  rightColumn: {
+    [theme.breakpoints.up('md')]: {
+      paddingLeft: theme.spacing(1)
+    }
+  },
+  team: {
+    paddingTop: theme.spacing(2)
+  },
+  knowledges: {
+    paddingTop: theme.spacing(2)
+  },
+  comments: {
+    paddingTop: theme.spacing(2)
+  }
 }))
 
 const stages = [
@@ -120,64 +139,81 @@ const Video = props => {
 
         <Grid
           item
-          md={8}
-          xs={12}
-          className={classes.knowledgeResume}
-        >
-           { enableTabsForContent() ? (
-              <SectionTabs
-                tabs={
-                  [
-                    {
-                      'title': 'Vídeo',
-                      'component': <VideoTab video={video} />,
-                    },
-                    {
-                      'title': 'Conhecimento',
-                      'component': <KnowledgePreview knowledge={video.mainKnowledge} />
-                    }
-                  ]
-                }
-              />
-            ) : (
-              <SectionPaper title="Conhecimento">
-                <KnowledgePreview knowledge={video.mainKnowledge} />
-              </SectionPaper>
-            )}
-        </Grid>
-
-        <Grid
-          item
-          md={4}
           xs={12}
           container
-          direction="column"
-          spacing={2}
+          direction="row-reverse"
+          spacing={0}
         >
+
           <Grid
+            className={classes.rightColumn}
             item
+            md={4}
+            xs={12}
+            container
+            direction="column"
           >
-            <VideoDetails video={video} />
+            <Grid
+              item
+            >
+              <VideoDetails video={video} />
+            </Grid>
+
+            <Grid
+              className={classes.team}
+              item
+            >
+              <TeamManager team={video.team} />
+            </Grid>
+            <Grid
+              className={classes.knowledges}
+              item
+            >
+              <Knowledges knowledges={video.knowledges} />
+            </Grid>
           </Grid>
 
           <Grid
+            className={classes.leftColumn}
             item
+            md={8}
+            xs={12}
+            container
           >
-            <TeamManager team={video.team} />
+            <Grid
+              item
+              xs={12}
+            >
+              { enableTabsForContent() ? (
+                  <SectionTabs
+                    tabs={
+                      [
+                        {
+                          'title': 'Vídeo',
+                          'component': <VideoTab video={video} />,
+                        },
+                        {
+                          'title': 'Conhecimento',
+                          'component': <KnowledgePreview knowledge={video.mainKnowledge} />
+                        }
+                      ]
+                    }
+                  />
+                ) : (
+                  <SectionPaper title="Conhecimento">
+                    <KnowledgePreview knowledge={video.mainKnowledge} />
+                  </SectionPaper>
+                )}
+            </Grid>
+
+            <Grid
+              item
+              xs={12}
+              className={classes.comments}
+            >
+              <Comments comments={video.comments} />
+            </Grid>
           </Grid>
-          <Grid
-            item
-          >
-            <Knowledges knowledges={video.knowledges} />
-          </Grid>
-        </Grid>
-        <Grid
-          item
-          md={8}
-          xs={12}
-          className={classes.comments}
-        >
-          <Comments comments={video.comments} />
         </Grid>
       </Grid>
     </div>
