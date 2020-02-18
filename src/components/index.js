@@ -4,6 +4,7 @@ export { default as Comments } from './Comments';
 export { default as FileInput } from './FileInput'
 export { default as FloatingSearch } from './FloatingSearch'
 export { default as HideElement } from './HideElement';
+export { default as KnowledgePreview } from './KnowledgePreview';
 export { default as RouteWithLayout } from './RouteWithLayout';
 export { default as SectionPaper } from './SectionPaper';
 export { default as SectionTabs } from './SectionTabs';
