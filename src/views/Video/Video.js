@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/styles'
 import { Breadcrumbs, Link, Typography, Grid, Button } from '@material-ui/core'
-import { Comments, AttributeEditor, SectionPaper, SectionTabs } from 'components'
+import { Comments, AttributeEditor, SectionPaper, SectionTabs, KnowledgePreview } from 'components'
 import {
-  KnowledgePreview,
   TeamManager,
   VideoDetails,
   Knowledges,

@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { makeStyles } from '@material-ui/styles'
-import { Paper, Typography, Divider } from '@material-ui/core'
+import { Typography } from '@material-ui/core'
 
 const useStyles = makeStyles(theme => ({
   root: {
