@@ -2,10 +2,17 @@ import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/styles'
 import { Grid, Typography, Button, Paper } from '@material-ui/core'
 import { dummyVideoPerStatus, removeArrayElement, updateArrayElement } from 'helpers'
-import { SectionTabs, Todolist } from 'components'
+import { SectionTabs, Todolist, KnowledgePreview } from 'components'
+import { useHistory } from 'react-router-dom'
 
 const useStyles = makeStyles(theme => ({
   root: {},
+  primaryActions: {
+    height: '100%',
+    display: 'flex',
+    justifyContent: 'flex-end',
+    alignItems: 'bottom'
+  },
   rejectButton: {
     marginRight: theme.spacing(2)
   },
@@ -18,6 +25,7 @@ const VideoReview = props => {
   const {} = props
   const [state, setState] = useState(dummyVideoPerStatus('revision'))
   const classes = useStyles()
+  const history = useHistory()
 
   const handleToggleTodo = (todo, checked) => {
     const updatedTodolist = updateArrayElement(state.todolist, todo, { done: checked })
@@ -31,10 +39,12 @@ const VideoReview = props => {
 
   const handleApprove = () => {
     console.log('TODO handleApprove')
+    history.push('/video/finished')
   }
 
   const handleReject = () => {
     console.log('TODO handleReject')
+    history.push('/video/re-editing')
   }
 
   return (
@@ -49,7 +59,7 @@ const VideoReview = props => {
       >
           <Grid
             item
-            md={8}
+            md={9}
             xs={12}
           >
             <Typography variant="h4" component="h2">{state.title}</Typography>
@@ -57,25 +67,27 @@ const VideoReview = props => {
 
           <Grid
             item
-            md={4}
+            md={3}
             xs={12}
           >
-            <Button
-              className={classes.rejectButton}
-              variant="contained"
-              color="primary"
-              onClick={handleReject}
-            >
-              Enviar ajustes
-            </Button>
+            <div className={classes.primaryActions}>
+              <Button
+                className={classes.rejectButton}
+                variant="contained"
+                color="primary"
+                onClick={handleReject}
+              >
+                Enviar ajustes
+              </Button>
 
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleApprove}
-            >
-              Aprovar
-            </Button>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleApprove}
+              >
+                Aprovar
+              </Button>
+            </div>
 
           </Grid>
 
@@ -110,7 +122,7 @@ const VideoReview = props => {
             },
             {
               title: 'Conteúdo',
-              component: null
+              component: <KnowledgePreview knowledge={state.mainKnowledge} />
             },
           ]}
         />
