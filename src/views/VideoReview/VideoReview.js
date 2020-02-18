@@ -2,8 +2,9 @@ import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/styles'
 import { Grid, Typography, Button, Paper } from '@material-ui/core'
 import { dummyVideoPerStatus, removeArrayElement, updateArrayElement } from 'helpers'
-import { SectionTabs, Todolist, KnowledgePreview } from 'components'
+import { SectionTabs, Todolist, KnowledgePreview, VideoPlayer } from 'components'
 import { useHistory } from 'react-router-dom'
+import { TodoInput } from './components'
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -18,14 +19,22 @@ const useStyles = makeStyles(theme => ({
   },
   videoSection: {
     padding: theme.spacing(2)
+  },
+  addTodoForm: {
+    marginTop: theme.spacing(1),
   }
 }))
 
-const VideoReview = props => {
-  const {} = props
+const VideoReview = _props => {
   const [state, setState] = useState(dummyVideoPerStatus('revision'))
   const classes = useStyles()
   const history = useHistory()
+
+  const handleSaveTodo = text => {
+    const newTodo = { id: state.todolist.length + 1, text: text, done: false }
+    const updatedTodolist = [...state.todolist, newTodo]
+    setState({...state, todolist: updatedTodolist})
+  }
 
   const handleToggleTodo = (todo, checked) => {
     const updatedTodolist = updateArrayElement(state.todolist, todo, { done: checked })
@@ -98,12 +107,17 @@ const VideoReview = props => {
         md={6}
         xs={12}
       >
-        <Paper
-          className={classes.videoSection}
-        >
-          <section>
-            Player
-            Input
+        <Paper>
+          <section className={classes.videoSection}>
+            <VideoPlayer
+              className={classes.player}
+              controls={true}
+              fluid={true}
+              sources={[{ src: state.file, type: 'video/mp4' }]}
+            />
+
+            <TodoInput className={classes.addTodoForm} onSave={handleSaveTodo} />
+
           </section>
         </Paper>
 
