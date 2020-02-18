@@ -1,5 +1,6 @@
 import React from 'react'
 import 'video.js/dist/video-js.css'
+import 'assets/sass/videojs.scss'
 import videojs from 'video.js'
 
 class VideoPlayer extends React.Component {
