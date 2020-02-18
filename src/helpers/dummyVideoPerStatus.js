@@ -147,23 +147,19 @@ const dummyVideoPerStatus = status => {
   switch (status) {
     case "finished":
     case "re-editing":
-      updatedValues = {
-        ...updatedValues,
-        ...{
-          todolist: [
-            { id: 1, text: 'Alterar título', time: null },
-            { id: 2, text: 'Alterar Fonte', time: 10 },
-            { id: 3, text: 'Troca termo "X" por termo "Y" na narração', time: 20 },
-            { id: 4, text: 'Atualizar vídeo com o novo encerramento', time: 100 },
-          ]
-        }
-      }
     case "revision":
       updatedValues = {
         ...updatedValues,
         ...{
           "scriptUrl": "https://docs.google.com/document/d/1_8keuEp9yG3LNxqCgev2z_uGfEM5tB0mZON1qXoWhR4/edit?usp=sharing",
-          "file": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4"
+          "file": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+          "todolist": [
+            { id: 1, text: 'Alterar título', time: null },
+            { id: 2, text: 'Alterar Fonte', time: 10 },
+            { id: 3, text: 'Troca termo "X" por termo "Y" na narração', time: 20 },
+            { id: 4, text: 'Troca termo "X" por termo "Y" na narração', time: 60 },
+            { id: 5, text: 'Atualizar vídeo com o novo encerramento', time: 100 },
+          ]
         }
       }
   }
