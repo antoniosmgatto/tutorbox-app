@@ -155,10 +155,10 @@ const dummyVideoPerStatus = status => {
           "file": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
           "todolist": [
             { id: 1, text: 'Alterar título', time: null },
-            { id: 2, text: 'Alterar Fonte', time: 10 },
-            { id: 3, text: 'Troca termo "X" por termo "Y" na narração', time: 20 },
-            { id: 4, text: 'Troca termo "X" por termo "Y" na narração', time: 60 },
-            { id: 5, text: 'Atualizar vídeo com o novo encerramento', time: 100 },
+            { id: 2, text: 'Alterar Fonte', time: null },
+            { id: 3, text: 'Troca termo "X" por termo "Y" na narração', time: 2 },
+            { id: 4, text: 'Troca termo "X" por termo "Y" na narração', time: 5 },
+            { id: 5, text: 'Atualizar vídeo com o novo encerramento', time: 10 },
           ]
         }
       }

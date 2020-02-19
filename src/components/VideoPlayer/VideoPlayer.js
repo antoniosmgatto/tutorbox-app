@@ -12,9 +12,11 @@ class VideoPlayer extends React.Component {
     this.bindListeners()
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   console.log(nextProps)
-  // }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.startTime !== this.props.startTime) {
+      if (nextProps.startTime) this.player.currentTime(nextProps.startTime)
+    }
+  }
 
   componentWillUnmount() {
     if (this.player) {
@@ -58,10 +60,13 @@ class VideoPlayer extends React.Component {
     }
   }
 
+  playbackState() { return this.player.paused() ? (this.player.ended() ? 'ended' : 'paused')  : 'playing' }
+
   buildStatus() {
     return {
       duration: this.player.duration(),
       currentTime: this.player.currentTime(),
+      state: this.playbackState()
     }
   }
 
@@ -112,6 +117,7 @@ VideoPlayer.propTypes = {
   onPause: PropTypes.func,
   onEnd: PropTypes.func,
   onTimeUpdate: PropTypes.func,
+  startTime: PropTypes.number,
 }
 
 VideoPlayer.defaultProps = {

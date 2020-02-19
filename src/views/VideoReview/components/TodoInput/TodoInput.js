@@ -5,13 +5,17 @@ import { Button } from '@material-ui/core'
 import { SimpleTextEditor } from 'components'
 import { AddCircle as AddCircleIcon } from '@material-ui/icons'
 import clsx from 'clsx'
+import { TimeCheckbox } from './components'
 
 const useStyles = makeStyles(theme => ({
   root: {}
 }))
 
 const TodoInput = props => {
-  const { className, onSave } = props
+  const {
+    className,
+    onSave,
+  } = props
   const classes = useStyles()
   const [todo, setTodo] = useState("")
   const [openTodoForm, setOpenTodoForm] = useState(false)
@@ -34,7 +38,13 @@ const TodoInput = props => {
     <div className={clsx(classes.root, className)}>
 
       { openTodoForm ? (
-        <SimpleTextEditor inputText={todo} onSave={handleSave} onClose={handleCloseForm} />
+        <div>
+          <SimpleTextEditor
+            inputText={todo}
+            onSave={handleSave}
+            onClose={handleCloseForm}
+          />
+        </div>
       ) : (
         <Button
           variant="text"
