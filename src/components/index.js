@@ -9,6 +9,7 @@ export { default as RouteWithLayout } from './RouteWithLayout';
 export { default as SectionPaper } from './SectionPaper';
 export { default as SectionTabs } from './SectionTabs';
 export { default as SimpleTextEditor } from './SimpleTextEditor';
+export { default as Toast } from './Toast';
 export { default as Todolist } from './Todolist';
 export { default as VideoPlayer } from './VideoPlayer';
 export { default as VideoStatus } from './VideoStatus';
