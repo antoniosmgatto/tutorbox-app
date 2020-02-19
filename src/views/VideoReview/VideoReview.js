@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/styles'
 import { Grid, Typography, Button, Paper } from '@material-ui/core'
 import { dummyVideoPerStatus, removeArrayElement, updateArrayElement } from 'helpers'
-import { SectionTabs, Todolist, KnowledgePreview, VideoPlayer } from 'components'
+import { SectionTabs, Todolist, KnowledgePreview, VideoPlayer, Toast } from 'components'
 import { useHistory } from 'react-router-dom'
 import { TodoInput } from './components'
 
@@ -25,15 +25,45 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
+const sortTodolist = (a, b) => {
+  if (a.time < b.time) return -1
+  if (a.time > b.time) return 1
+  return (a, b) => {
+    if (a.id < b.id) return -1
+    if (a.id > b.id) return 1
+    return 0
+  }
+}
+
 const VideoReview = _props => {
   const [state, setState] = useState(dummyVideoPerStatus('revision'))
+  const [videoPlaybackStatus, setVideoPlaybackStatus] = useState({})
+  const [toastMessage, setToastMessage] = useState(null)
+  const [videoStartTime, setVideoStartTime] = useState(null)
   const classes = useStyles()
   const history = useHistory()
+  const sortedTodolist = state.todolist.sort(sortTodolist)
 
   const handleSaveTodo = text => {
-    const newTodo = { id: state.todolist.length + 1, text: text, done: false }
-    const updatedTodolist = [...state.todolist, newTodo]
-    setState({...state, todolist: updatedTodolist})
+    let currentPlayerTime = null
+
+    if (videoPlaybackStatus.currentTime > 0) {
+      currentPlayerTime = Math.floor(videoPlaybackStatus.currentTime)
+    }
+
+    const newTodo = {
+      id: state.todolist.length + 1,
+      text: text,
+      time: currentPlayerTime,
+      done: false
+    }
+
+    setState({
+      ...state,
+      todolist: [...state.todolist, newTodo]
+    })
+
+    setToastMessage('Correção adicionada')
   }
 
   const handleToggleTodo = (todo, checked) => {
@@ -44,6 +74,28 @@ const VideoReview = _props => {
   const handleDeleteTodo = todo => {
     const updatedTodolist = removeArrayElement(state.todolist, todo)
     setState({ ...state, todolist: updatedTodolist })
+    setToastMessage('Correção Removida')
+  }
+
+  const handleVideoPlaybackStart = () => {
+    setVideoStartTime(null)
+  }
+
+  const handleVideoPlaybackStatus = status => {
+    setVideoPlaybackStatus(status)
+  }
+
+  const handleVideoPlaybackEnd = () => {
+    setVideoPlaybackStatus({})
+    setVideoStartTime(null)
+  }
+
+  const handleTodoTimeClick = (todo) => {
+    setVideoStartTime(todo.time)
+  }
+
+  const handleToastClose = () => {
+    setToastMessage(null)
   }
 
   const handleApprove = () => {
@@ -111,13 +163,24 @@ const VideoReview = _props => {
           <section className={classes.videoSection}>
             <VideoPlayer
               className={classes.player}
-              controls={true}
-              fluid={true}
               sources={[{ src: state.file, type: 'video/mp4' }]}
+              onPlay={handleVideoPlaybackStart}
+              onTimeUpdate={handleVideoPlaybackStatus}
+              onEnd={handleVideoPlaybackEnd}
+              startTime={videoStartTime}
             />
 
-            <TodoInput className={classes.addTodoForm} onSave={handleSaveTodo} />
+            <TodoInput
+              className={classes.addTodoForm}
+              onSave={handleSaveTodo}
+            />
 
+            <Toast
+              open={toastMessage}
+              severity="success"
+              message={toastMessage}
+              onClose={handleToastClose}
+            />
           </section>
         </Paper>
 
@@ -132,7 +195,14 @@ const VideoReview = _props => {
           tabs={[
             {
               title: 'Correções',
-              component: <Todolist todolist={state.todolist} onToggleTodo={handleToggleTodo} onDeleteTodo={handleDeleteTodo} mode="edit" />
+              component: (
+                <Todolist
+                  todolist={sortedTodolist}
+                  mode="edit"
+                  onToggleTodo={handleToggleTodo}
+                  onDeleteTodo={handleDeleteTodo}
+                  onTimeClick={handleTodoTimeClick}
+                />)
             },
             {
               title: 'Conteúdo',

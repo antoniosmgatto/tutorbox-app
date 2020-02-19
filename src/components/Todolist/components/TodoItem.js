@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { makeStyles } from '@material-ui/styles'
-import { ListItem, ListItemText, ListItemSecondaryAction, IconButton, Checkbox } from '@material-ui/core'
+import { ListItem, ListItemText, ListItemSecondaryAction, IconButton, Checkbox, Link } from '@material-ui/core'
 import { Delete as DeleteIcon } from '@material-ui/icons'
 
 const useStyles = makeStyles(theme => ({
@@ -9,6 +9,9 @@ const useStyles = makeStyles(theme => ({
   checkboxWrapper: {
     paddingRight: theme.spacing(2),
     alignItems: 'flex-start',
+  },
+  time: {
+    cursor: 'pointer'
   }
 }))
 
@@ -27,7 +30,8 @@ const TodoItem = props => {
     enableCheckbox,
     onToggle,
     enableDelete,
-    onDelete
+    onDelete,
+    onTimeClick
   } = props
   const classes = useStyles()
   const formattedTime = todo.time ? formatTime(todo.time) : null
@@ -35,6 +39,10 @@ const TodoItem = props => {
   const handleChange = event => {
     const { checked } = event.target
     onToggle(checked)
+  }
+
+  const handleTimeClick = () => {
+    onTimeClick()
   }
 
   const handleDelete = () => {
@@ -58,7 +66,7 @@ const TodoItem = props => {
 
       <ListItemText
         primary={todo.text}
-        secondary={formattedTime}
+        secondary={formattedTime  && <Link  className={classes.time} onClick={handleTimeClick}>{formattedTime}</Link>}
       />
 
       { enableDelete &&
@@ -79,6 +87,7 @@ TodoItem.propTypes = {
   onToggle: PropTypes.func,
   enableDelete: PropTypes.bool,
   onDelete: PropTypes.func,
+  onTimeClick: PropTypes.func.isRequired,
 }
 
 export default TodoItem

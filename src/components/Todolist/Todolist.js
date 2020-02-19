@@ -23,6 +23,7 @@ const Todolist = props => {
     mode,
     onToggleTodo,
     onDeleteTodo,
+    onTimeClick,
     ...otherProps
   } = props
   const classes = useStyles()
@@ -35,6 +36,10 @@ const Todolist = props => {
 
   const handleDeleteTodo = todo => () => {
     onDeleteTodo(todo)
+  }
+
+  const handleTimeClick = todo => () => {
+    if (onTimeClick) onTimeClick(todo)
   }
 
   return (
@@ -51,6 +56,7 @@ const Todolist = props => {
           onToggle={handleToggleTodo(todo)}
           enableDelete={enableDelete}
           onDelete={handleDeleteTodo(todo)}
+          onTimeClick={handleTimeClick(todo)}
         />
       ))}
        { todolist.length === 0 && (
@@ -67,6 +73,7 @@ Todolist.propTypes = {
   mode: PropTypes.oneOf(['edit', 'check']).isRequired,
   onToggleTodo: PropTypes.func,
   onDeleteTodo: PropTypes.func,
+  onTimeClick: PropTypes.func,
 }
 
 export default Todolist
