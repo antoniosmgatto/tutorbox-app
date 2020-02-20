@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { makeStyles } from '@material-ui/styles'
 import clsx from 'clsx'
 import { TodoItem } from './components'
-import { List, Typography } from '@material-ui/core'
+import { List } from '@material-ui/core'
 import { Alert } from '@material-ui/lab'
 
 const useStyles = makeStyles(theme => ({
