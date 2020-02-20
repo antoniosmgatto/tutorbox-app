@@ -4,14 +4,12 @@ import {
   Typography,
   Paper,
   List,
-  IconButton,
   Link,
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import { VideoDetailsListItem } from './components'
 import { formatDate } from 'helpers'
 import { VideoStatus } from 'components'
-import { Note } from '@material-ui/icons'
 
 const useStyles = makeStyles(theme => ({
   root: {

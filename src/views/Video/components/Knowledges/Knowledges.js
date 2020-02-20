@@ -5,7 +5,6 @@ import { SectionPaper } from 'components'
 import { Button, List } from '@material-ui/core'
 import { KnowledgeListItem, KnowledgeSearch } from './components'
 import { Alert } from '@material-ui/lab'
-import Video from 'views/Video/Video'
 import { removeArrayElement } from 'helpers'
 
 const useStyles = makeStyles(theme => ({
