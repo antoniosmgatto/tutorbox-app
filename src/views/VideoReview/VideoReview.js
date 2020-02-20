@@ -9,10 +9,12 @@ import { TodoInput } from './components'
 const useStyles = makeStyles(theme => ({
   root: {},
   primaryActions: {
-    height: '100%',
-    display: 'flex',
-    justifyContent: 'flex-end',
-    alignItems: 'bottom'
+    [theme.breakpoints.up('md')]: {
+      height: '100%',
+      display: 'flex',
+      justifyContent: 'flex-end',
+      alignItems: 'bottom'
+    }
   },
   rejectButton: {
     marginRight: theme.spacing(2)
@@ -115,43 +117,35 @@ const VideoReview = _props => {
     >
       <Grid
         item
-        container
+        md={9}
         xs={12}
       >
-          <Grid
-            item
-            md={9}
-            xs={12}
+        <Typography variant="h4" component="h2">{state.title}</Typography>
+      </Grid>
+
+      <Grid
+        item
+        md={3}
+        xs={12}
+      >
+        <div className={classes.primaryActions}>
+          <Button
+            className={classes.rejectButton}
+            variant="contained"
+            color="primary"
+            onClick={handleReject}
           >
-            <Typography variant="h4" component="h2">{state.title}</Typography>
-          </Grid>
+            Enviar ajustes
+          </Button>
 
-          <Grid
-            item
-            md={3}
-            xs={12}
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleApprove}
           >
-            <div className={classes.primaryActions}>
-              <Button
-                className={classes.rejectButton}
-                variant="contained"
-                color="primary"
-                onClick={handleReject}
-              >
-                Enviar ajustes
-              </Button>
-
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleApprove}
-              >
-                Aprovar
-              </Button>
-            </div>
-
-          </Grid>
-
+            Aprovar
+          </Button>
+        </div>
       </Grid>
 
       <Grid
