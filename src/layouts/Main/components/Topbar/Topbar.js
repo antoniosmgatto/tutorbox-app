@@ -9,7 +9,7 @@ import {
   Menu as MenuIcon,
   NotificationsNone as NotificationsNoneIcon,
 } from '@material-ui/icons';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import { Notifications } from './components'
 
 const useStyles = makeStyles(theme => ({
@@ -21,17 +21,15 @@ const useStyles = makeStyles(theme => ({
 const Topbar = (props) => {
   const {onSidebarOpen} = props
   const classes = useStyles();
-  const [redirectTo, setRedirect] = useState()
   const [openNotifications, setOpenNotifications] = useState(false)
-
-  if (redirectTo) return <Redirect to="/login" />
+  const history = useHistory()
 
   const handleSidebarButton = () => {
     onSidebarOpen()
   }
 
   const handleLogout = () => {
-    setRedirect('/login')
+    history.push('/auth')
   }
 
   const toogleNotifications = () => {
