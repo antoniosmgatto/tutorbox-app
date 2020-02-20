@@ -6653,6 +6653,10 @@ no-case@^2.2.0:
   dependencies:
     lower-case "^1.1.1"
 
+node-email-validation@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/node-email-validation/-/node-email-validation-1.0.4.tgz#b08fd30cc7fb00d6e3ca6130da01302b075fe104"
+
 node-forge@0.9.0:
   version "0.9.0"
   resolved "https://registry.yarnpkg.com/node-forge/-/node-forge-0.9.0.tgz#d624050edbb44874adca12bb9a52ec63cb782579"

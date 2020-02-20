@@ -2,6 +2,7 @@ import React from 'react'
 import { makeStyles } from '@material-ui/styles'
 import { TextField, Button } from '@material-ui/core'
 import { useState } from 'react'
+import { useHistory } from 'react-router-dom'
 
 const useStyles = makeStyles(theme => ({
   username: {},
@@ -13,6 +14,7 @@ const useStyles = makeStyles(theme => ({
 const Authentication = _props => {
   const classes = useStyles()
   const [state, setState] = useState({})
+  const history = useHistory()
 
   const handleChange = event => {
     const { name, value } = event.target
@@ -23,8 +25,8 @@ const Authentication = _props => {
     console.log('login')
   }
 
-  const handleForgetPasswordClick = () => {
-    console.log('forget password')
+  const handleForgetPassword = () => {
+    history.push('/recuperar-senha')
   }
 
   return (
@@ -55,7 +57,7 @@ const Authentication = _props => {
         <Button
           variant="text"
           size="small"
-          onClick={handleForgetPasswordClick}
+          onClick={handleForgetPassword}
         >
           Esqueceu a senha?
         </Button>
