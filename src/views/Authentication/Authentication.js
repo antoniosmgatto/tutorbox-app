@@ -9,20 +9,25 @@ const useStyles = makeStyles(theme => ({
   password: {
     marginTop: theme.spacing(2)
   },
+  submit: {
+    marginTop: theme.spacing(2)
+  }
 }))
 
 const Authentication = _props => {
   const classes = useStyles()
   const [state, setState] = useState({})
   const history = useHistory()
+  const disabledSubmit = Object.keys(state).some(field => !state[field])
 
   const handleChange = event => {
     const { name, value } = event.target
     setState({...state, [name]: value})
   }
 
-  const handleAuthenticationClick = () => {
-    console.log('login')
+  const handleAuthentication = () => {
+    console.log('TODO login')
+    history.push('/')
   }
 
   const handleForgetPassword = () => {
@@ -64,10 +69,12 @@ const Authentication = _props => {
       </div>
 
       <Button
+        className={classes.submit}
         variant="contained"
         color="primary"
         fullWidth
-        onClick={handleAuthenticationClick}
+        onClick={handleAuthentication}
+        disabled={disabledSubmit}
       >
         Entrar
       </Button>
