@@ -58,7 +58,7 @@ const mainActionLabels = {
   'pre-production': 'Iniciar produção',
   'production': 'Enviar para revisão',
   'revision': 'Revisar',
-  're-editing': 'Enviar para revisão',
+  're-editing': 'Visualizar correções',
   'finished': '',
 }
 
@@ -76,11 +76,19 @@ const Video = _props => {
     return stages[index + 1]
   }
 
-  const handleNextStage = () => {
-    const nextUrl = `/video/${nextStage()}`
+  const handleNextMainAction = () => {
+    let nextUrl
+    if (['draft', 'pre-production', 'production', 'finished'].includes(state.status)) {
+        setState(dummyVideoPerStatus(nextStage()))
+        nextUrl = `/video/${nextStage()}`
+    } else if (state.status === 'revision') {
+        nextUrl = '/video/revisao'
+    } else if (state.status === 're-editing') {
+        nextUrl = '/video/ajustes'
+    }
     history.push(nextUrl)
-    setState(dummyVideoPerStatus(nextStage()))
   }
+
 
   const handleUpdateTitle = updatedTitle => {
     setState({...state, title: updatedTitle})
@@ -132,17 +140,17 @@ const Video = _props => {
         md={4}
         xs={12}
       >
-        { isVideoNotFinished() &&
-          <div className={classes.mainActionWrapper}>
+        <div className={classes.mainActionWrapper}>
+          { isVideoNotFinished() &&
             <Button
               variant="contained"
               color="primary"
-              onClick={handleNextStage}
+              onClick={handleNextMainAction}
               >
                 {mainActionLabel}
             </Button>
-          </div>
-        }
+          }
+        </div>
       </Grid>
 
       <Grid

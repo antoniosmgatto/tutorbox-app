@@ -40,6 +40,12 @@ const Routes = () => {
     />
     <RouteWithLayout
       exact
+      path="/video/ajustes"
+      component={VideoReviewView}
+      layout={MainLayout}
+    />
+    <RouteWithLayout
+      exact
       path="/video/:status"
       component={VideoView}
       layout={MainLayout}
