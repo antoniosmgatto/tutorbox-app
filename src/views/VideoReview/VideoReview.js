@@ -1,13 +1,12 @@
 import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/styles'
-import { Grid, Typography, Button, Paper } from '@material-ui/core'
+import { Grid, Typography, Button, Paper, Breadcrumbs, Link } from '@material-ui/core'
 import { dummyVideoPerStatus, removeArrayElement, updateArrayElement } from 'helpers'
 import { SectionTabs, Todolist, KnowledgePreview, VideoPlayer, Toast } from 'components'
 import { useHistory } from 'react-router-dom'
 import { TodoInput } from './components'
 
 const useStyles = makeStyles(theme => ({
-  root: {},
   primaryActions: {
     [theme.breakpoints.up('md')]: {
       height: '100%',
@@ -117,6 +116,26 @@ const VideoReview = _props => {
     >
       <Grid
         item
+        xs={12}
+      >
+        <Breadcrumbs>
+          <Link
+            color="inherit"
+            href="/videos"
+          >
+            Vídeos
+          </Link>
+          <Link
+            color="inherit"
+            href={`/video/${state.status}`}
+          >
+            Detalhes do Vídeo
+          </Link>
+          <Typography>Revisão</Typography>
+        </Breadcrumbs>
+      </Grid>
+      <Grid
+        item
         md={9}
         xs={12}
       >
@@ -205,7 +224,6 @@ const VideoReview = _props => {
           ]}
         />
       </Grid>
-
     </Grid>
   )
 }
