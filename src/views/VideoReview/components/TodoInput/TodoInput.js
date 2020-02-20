@@ -5,7 +5,6 @@ import { Button } from '@material-ui/core'
 import { SimpleTextEditor } from 'components'
 import { AddCircle as AddCircleIcon } from '@material-ui/icons'
 import clsx from 'clsx'
-import { TimeCheckbox } from './components'
 
 const useStyles = makeStyles(theme => ({
   root: {}
