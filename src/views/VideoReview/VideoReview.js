@@ -2,9 +2,10 @@ import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/styles'
 import { Grid, Typography, Button, Paper, Breadcrumbs, Link } from '@material-ui/core'
 import { dummyVideoPerStatus, removeArrayElement, updateArrayElement } from 'helpers'
-import { SectionTabs, Todolist, KnowledgePreview, VideoPlayer, Toast } from 'components'
+import { SectionTabs, Todolist, KnowledgePreview, VideoPlayer, Toast, FileInput } from 'components'
 import { useHistory } from 'react-router-dom'
 import { TodoInput } from './components'
+import { CloudUpload as CloudUploadIcon } from '@material-ui/icons'
 
 const useStyles = makeStyles(theme => ({
   primaryActions: {
@@ -21,7 +22,7 @@ const useStyles = makeStyles(theme => ({
   videoSection: {
     padding: theme.spacing(2)
   },
-  addTodoForm: {
+  playerActions: {
     marginTop: theme.spacing(1),
   }
 }))
@@ -36,8 +37,11 @@ const sortTodolist = (a, b) => {
   }
 }
 
-const VideoReview = _props => {
-  const [state, setState] = useState(dummyVideoPerStatus('revision'))
+const VideoReview = props => {
+  const { match } = props
+  const currentStatus = match.path.includes('revisao') ? 'revision' : 're-editing'
+  const [state, setState] = useState(dummyVideoPerStatus(currentStatus))
+  const isReview = currentStatus === 'revision'
   const [videoPlaybackStatus, setVideoPlaybackStatus] = useState({})
   const [toastMessage, setToastMessage] = useState(null)
   const [videoStartTime, setVideoStartTime] = useState(null)
@@ -78,6 +82,10 @@ const VideoReview = _props => {
     setToastMessage('Correção Removida')
   }
 
+  const handleUpload = () => {
+    console.log('TODO handleUpload')
+  }
+
   const handleVideoPlaybackStart = () => {
     setVideoStartTime(null)
   }
@@ -97,6 +105,11 @@ const VideoReview = _props => {
 
   const handleToastClose = () => {
     setToastMessage(null)
+  }
+
+  const handleFinishFixes = () => {
+    console.log('TODO handleFinishFixes')
+    history.push('/video/revision')
   }
 
   const handleApprove = () => {
@@ -129,9 +142,9 @@ const VideoReview = _props => {
             color="inherit"
             href={`/video/${state.status}`}
           >
-            Detalhes do Vídeo
+            Detalhes do vídeo
           </Link>
-          <Typography>Revisão</Typography>
+          <Typography>{isReview ? 'Revisão':'Visualizando correções'}</Typography>
         </Breadcrumbs>
       </Grid>
       <Grid
@@ -139,7 +152,7 @@ const VideoReview = _props => {
         md={9}
         xs={12}
       >
-        <Typography variant="h4" component="h2">{state.title}</Typography>
+        <Typography variant="h5" component="h2">{state.title}</Typography>
       </Grid>
 
       <Grid
@@ -148,22 +161,34 @@ const VideoReview = _props => {
         xs={12}
       >
         <div className={classes.primaryActions}>
-          <Button
-            className={classes.rejectButton}
-            variant="contained"
-            color="primary"
-            onClick={handleReject}
-          >
-            Enviar ajustes
-          </Button>
+          { isReview ? (
+            <>
+              <Button
+                className={classes.rejectButton}
+                variant="contained"
+                color="primary"
+                onClick={handleReject}
+              >
+                Enviar ajustes
+              </Button>
 
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleApprove}
-          >
-            Aprovar
-          </Button>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleApprove}
+              >
+                Aprovar
+              </Button>
+            </>
+          ) : (
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleFinishFixes}
+            >
+              Enviar para revisão
+            </Button>
+          )}
         </div>
       </Grid>
 
@@ -183,11 +208,22 @@ const VideoReview = _props => {
               startTime={videoStartTime}
             />
 
-            <TodoInput
-              className={classes.addTodoForm}
-              onSave={handleSaveTodo}
-            />
-
+            <div className={classes.playerActions}>
+            { isReview ? (
+                          <TodoInput
+                            className={classes.addTodoForm}
+                            onSave={handleSaveTodo}
+                          />
+                        )
+                        : (
+                          <FileInput
+                            className={classes.button}
+                            inputProps={{ accept: 'video/mp4' }}
+                            buttonProps={{ variant: 'contained', startIcon: <CloudUploadIcon /> }}
+                            onChange={handleUpload}
+                          />
+                        )}
+            </div>
             <Toast
               open={toastMessage}
               severity="success"
@@ -211,7 +247,7 @@ const VideoReview = _props => {
               component: (
                 <Todolist
                   todolist={sortedTodolist}
-                  mode="edit"
+                  mode={ isReview ? 'edit' : 'check' }
                   onToggleTodo={handleToggleTodo}
                   onDeleteTodo={handleDeleteTodo}
                   onTimeClick={handleTodoTimeClick}

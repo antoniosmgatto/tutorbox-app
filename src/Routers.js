@@ -15,45 +15,55 @@ import {
 } from "views";
 
 const Routes = () => {
-  return (
-    <Switch>
-      <Redirect exact path="/" to="/conhecimentos" />
-      <RouteWithLayout
-        path="/auth"
-        component={AuthenticationView}
-        layout={UnrestrictLayout}
-      />
-      <RouteWithLayout
-        exact
-        path="/conhecimentos"
-        component={Knowledges}
-        layout={MainLayout}
-      />
-      <RouteWithLayout
-        exact
-        path="/conhecimento/novo"
-        component={KnowledgeView}
-        layout={MainLayout}
-      />
-      <RouteWithLayout
-        exact
-        path="/video/revisao"
-        component={VideoReviewView}
-        layout={MainLayout}
-      />
-      <RouteWithLayout
-        exact
-        path="/video/:status"
-        component={VideoView}
-        layout={MainLayout}
-      />
-      <RouteWithLayout
-        exact
-        path="/videos"
-        component={VideosView}
-        layout={MainLayout}
-      />
-    </Switch>
+  return(
+  <Switch>
+    <Redirect
+      exact
+      path="/"
+      to="/conhecimentos"
+    />
+    <RouteWithLayout
+      path="/auth"
+      component={AuthenticationView}
+      layout={UnrestrictLayout}
+    />
+    <RouteWithLayout
+      exact
+      path="/conhecimentos"
+      component={Knowledges}
+      layout={MainLayout}
+    />
+    <RouteWithLayout
+      exact
+      path="/conhecimento/novo"
+      component={KnowledgeView}
+      layout={MainLayout}
+    />
+    <RouteWithLayout
+      exact
+      path="/video/revisao"
+      component={VideoReviewView}
+      layout={MainLayout}
+    />
+    <RouteWithLayout
+      exact
+      path="/video/ajustes"
+      component={VideoReviewView}
+      layout={MainLayout}
+    />
+    <RouteWithLayout
+      exact
+      path="/video/:status"
+      component={VideoView}
+      layout={MainLayout}
+    />
+    <RouteWithLayout
+      exact
+      path="/videos"
+      component={VideosView}
+      layout={MainLayout}
+    />
+  </Switch>
   )
 };
 
