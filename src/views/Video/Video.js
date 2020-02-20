@@ -12,7 +12,6 @@ import { dummyVideoPerStatus } from 'helpers'
 import { useHistory, useParams } from 'react-router-dom'
 
 const useStyles = makeStyles(theme => ({
-  root: {},
   titleWrapper: {
     padding: theme.spacing(1, 0),
   },
@@ -98,133 +97,133 @@ const Video = _props => {
   }
 
   return (
-    <div className={classes.root}>
-
-      <Breadcrumbs>
-        <Link
-          color="inherit"
-          href="/videos"
-        >
-          Vídeos
-        </Link>
-        <Typography>Novo</Typography>
-      </Breadcrumbs>
+    <Grid
+      container
+      spacing={2}
+    >
+      <Grid
+        item
+        xs={12}
+      >
+        <Breadcrumbs>
+          <Link
+            color="inherit"
+            href="/videos"
+          >
+            Vídeos
+          </Link>
+          <Typography>Detalhes do vídeo</Typography>
+        </Breadcrumbs>
+      </Grid>
+      <Grid
+        item
+        md={8}
+        xs={12}
+      >
+        <AttributeEditor
+          className={classes.titleWrapper}
+          value={state.title}
+          onSave={handleUpdateTitle}
+        />
+      </Grid>
 
       <Grid
+        item
+        md={4}
+        xs={12}
+      >
+        { isVideoNotFinished() &&
+          <div className={classes.mainActionWrapper}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleNextStage}
+              >
+                {mainActionLabel}
+            </Button>
+          </div>
+        }
+      </Grid>
+
+      <Grid
+        item
+        xs={12}
         container
-        spacing={2}
+        direction="row-reverse"
+        spacing={0}
       >
 
         <Grid
-          item
-          md={8}
-          xs={12}
-        >
-          <AttributeEditor
-            className={classes.titleWrapper}
-            value={state.title}
-            onSave={handleUpdateTitle}
-          />
-        </Grid>
-
-        <Grid
+          className={classes.rightColumn}
           item
           md={4}
           xs={12}
+          container
+          direction="column"
         >
-          { isVideoNotFinished() &&
-            <div className={classes.mainActionWrapper}>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleNextStage}
-                >
-                  {mainActionLabel}
-              </Button>
-            </div>
-          }
+          <Grid
+            item
+          >
+            <VideoDetails video={state} />
+          </Grid>
+
+          <Grid
+            className={classes.team}
+            item
+          >
+            <TeamManager team={state.team} />
+          </Grid>
+          <Grid
+            className={classes.knowledges}
+            item
+          >
+            <Knowledges knowledges={state.knowledges} />
+          </Grid>
         </Grid>
 
         <Grid
+          className={classes.leftColumn}
           item
+          md={8}
           xs={12}
           container
-          direction="row-reverse"
-          spacing={0}
         >
-
           <Grid
-            className={classes.rightColumn}
             item
-            md={4}
             xs={12}
-            container
-            direction="column"
           >
-            <Grid
-              item
-            >
-              <VideoDetails video={state} />
-            </Grid>
-
-            <Grid
-              className={classes.team}
-              item
-            >
-              <TeamManager team={state.team} />
-            </Grid>
-            <Grid
-              className={classes.knowledges}
-              item
-            >
-              <Knowledges knowledges={state.knowledges} />
-            </Grid>
+            { enableTabsForContent() ? (
+                <SectionTabs
+                  tabs={
+                    [
+                      {
+                        'title': 'Vídeo',
+                        'component': <VideoTab video={state} onCreateScript={handleCreateScript} onVideoUpload={handleVideoUpload} />,
+                      },
+                      {
+                        'title': 'Conhecimento',
+                        'component': <KnowledgePreview knowledge={state.mainKnowledge} />
+                      }
+                    ]
+                  }
+                />
+              ) : (
+                <SectionPaper title="Conhecimento">
+                  <KnowledgePreview knowledge={state.mainKnowledge} />
+                </SectionPaper>
+              )}
           </Grid>
 
           <Grid
-            className={classes.leftColumn}
             item
-            md={8}
             xs={12}
-            container
+            className={classes.comments}
           >
-            <Grid
-              item
-              xs={12}
-            >
-              { enableTabsForContent() ? (
-                  <SectionTabs
-                    tabs={
-                      [
-                        {
-                          'title': 'Vídeo',
-                          'component': <VideoTab video={state} onCreateScript={handleCreateScript} onVideoUpload={handleVideoUpload} />,
-                        },
-                        {
-                          'title': 'Conhecimento',
-                          'component': <KnowledgePreview knowledge={state.mainKnowledge} />
-                        }
-                      ]
-                    }
-                  />
-                ) : (
-                  <SectionPaper title="Conhecimento">
-                    <KnowledgePreview knowledge={state.mainKnowledge} />
-                  </SectionPaper>
-                )}
-            </Grid>
-
-            <Grid
-              item
-              xs={12}
-              className={classes.comments}
-            >
-              <Comments comments={state.comments} />
-            </Grid>
+            <Comments comments={state.comments} />
           </Grid>
         </Grid>
       </Grid>
-    </div>
+    </Grid>
   )
 }
 
