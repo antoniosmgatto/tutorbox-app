@@ -7,7 +7,10 @@ import { useHistory } from 'react-router-dom'
 const useStyles = makeStyles(theme => ({
   header: {
     textAlign: 'center',
-    marginBottom: theme.spacing(2)
+    marginBottom: theme.spacing(4)
+  },
+  logo: {
+    width: 280,
   },
   username: {},
   password: {
@@ -41,12 +44,7 @@ const Authentication = _props => {
   return (
     <>
       <header className={classes.header}>
-        <Typography
-          variant="h2"
-          component="h1"
-        >
-          Tutorbox
-        </Typography>
+        <img className={classes.logo} src="images/tutorbox.png" alt="Tutorbox Logo" />
       </header>
       <form>
         <TextField
