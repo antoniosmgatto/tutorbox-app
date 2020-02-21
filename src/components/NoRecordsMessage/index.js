@@ -1,1 +1,1 @@
-export { default } from './NoRecordMessage'
+export { default } from './NoRecordsMessage'

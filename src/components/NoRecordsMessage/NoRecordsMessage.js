@@ -12,7 +12,7 @@ const useStyles = makeStyles(theme => ({
 
 }))
 
-const NoRecordMessage = props => {
+const NoRecorsdMessage = props => {
   const {} = props
   const classes = useStyles()
   return (
@@ -41,6 +41,4 @@ const NoRecordMessage = props => {
   )
 }
 
-NoRecordMessage.propTypes = {}
-
-export default NoRecordMessage
+export default NoRecorsdMessage

@@ -3,7 +3,7 @@ import { Hidden, Button, Grid } from '@material-ui/core';
 import { VideosList, VideosTable } from './components'
 import { makeStyles } from '@material-ui/styles';
 import { useHistory } from 'react-router-dom'
-import { NoRecordMessage } from 'components';
+import { NoRecordsMessage } from 'components';
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -55,7 +55,7 @@ const Videos = () => {
           xs={12}
         >
           { videos.length === 0 ? (
-            <NoRecordMessage />
+            <NoRecordsMessage />
           ) : (
             <>
               <Hidden mdUp>
