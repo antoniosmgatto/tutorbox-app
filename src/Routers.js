@@ -12,6 +12,7 @@ import {
   VideosView,
   VideoReview as VideoReviewView,
   Authentication as AuthenticationView,
+  NewPassword as NewPasswordView,
   RecoveryPassword as RecoveryPasswordView,
 } from "views";
 
@@ -31,6 +32,11 @@ const Routes = () => {
     <RouteWithLayout
       path="/recuperar-senha"
       component={RecoveryPasswordView}
+      layout={UnrestrictLayout}
+    />
+    <RouteWithLayout
+      path="/nova-senha/:token"
+      component={NewPasswordView}
       layout={UnrestrictLayout}
     />
     <RouteWithLayout
