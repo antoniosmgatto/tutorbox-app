@@ -20,12 +20,14 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
+const validate = email => EmailValidation.is_email_valid(email);
+
 const RecoveryPassword = _props => {
   const classes = useStyles()
   const [email, setEmail] = useState('')
   const history = useHistory()
   const [message, setMessage] = useState(null)
-  const disabledSubmit = !EmailValidation.is_email_valid(email);
+  const disabledSubmit = !validate(email)
 
   const handleChange = event => {
     const { value } = event.target
