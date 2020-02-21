@@ -1,8 +1,9 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/styles'
-import { TextField, Button, Typography } from '@material-ui/core'
+import { TextField, Button } from '@material-ui/core'
 import { useState } from 'react'
 import { useHistory } from 'react-router-dom'
+import { auth } from 'helpers'
 
 const useStyles = makeStyles(theme => ({
   header: {
@@ -23,18 +24,20 @@ const useStyles = makeStyles(theme => ({
 
 const Authentication = _props => {
   const classes = useStyles()
-  const [state, setState] = useState({})
+  const [formData, setFormData] = useState({ username: '', password: ''})
   const history = useHistory()
-  const disabledSubmit = Object.keys(state).some(field => !state[field])
+  const disabledSubmit = Object.keys(formData).some(field => !formData[field])
 
   const handleChange = event => {
     const { name, value } = event.target
-    setState({...state, [name]: value})
+    setFormData({...formData, [name]: value})
   }
 
   const handleAuthentication = () => {
     console.log('TODO login')
-    history.push('/')
+    auth.login(formData, () => {
+      history.push('/')
+    })
   }
 
   const handleForgetPassword = () => {

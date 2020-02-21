@@ -26,16 +26,19 @@ const Routes = () => {
     />
     <RouteWithLayout
       path="/auth"
+      restricted={false}
       component={AuthenticationView}
       layout={UnrestrictLayout}
     />
     <RouteWithLayout
       path="/recuperar-senha"
+      restricted={false}
       component={RecoveryPasswordView}
       layout={UnrestrictLayout}
     />
     <RouteWithLayout
       path="/nova-senha/:token"
+      restricted={false}
       component={NewPasswordView}
       layout={UnrestrictLayout}
     />

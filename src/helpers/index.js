@@ -1,3 +1,4 @@
+export { default as auth } from './auth'
 export { default as dummyVideoPerStatus } from './dummyVideoPerStatus'
 export { default as isEmptyObject } from './isEmptyObject'
 export { default as getVideoStatusLabel } from './getVideoStatusLabel'

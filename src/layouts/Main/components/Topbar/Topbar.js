@@ -9,8 +9,9 @@ import {
   Menu as MenuIcon,
   NotificationsNone as NotificationsNoneIcon,
 } from '@material-ui/icons';
-import { Redirect, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { Notifications } from './components'
+import { auth } from 'helpers';
 
 const useStyles = makeStyles(theme => ({
   title: {
@@ -29,7 +30,9 @@ const Topbar = (props) => {
   }
 
   const handleLogout = () => {
-    history.push('/auth')
+    auth.logout(() => {
+      history.push('/auth')
+    })
   }
 
   const toogleNotifications = () => {
