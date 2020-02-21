@@ -1,4 +1,5 @@
 export { default as dummyVideoPerStatus } from './dummyVideoPerStatus'
+export { default as isEmptyObject } from './isEmptyObject'
 export { default as getVideoStatusLabel } from './getVideoStatusLabel'
 export { default as getVideoStatusColor } from './getVideoStatusColor'
 export { default as formatDate } from './formatDate'
