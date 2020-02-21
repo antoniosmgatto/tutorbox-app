@@ -1,27 +1,33 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { List, ListItem, ListItemText, Divider, ListItemAvatar } from '@material-ui/core'
+import { List, ListItem, ListItemText, ListItemAvatar } from '@material-ui/core'
 import { VideoAvatar } from './component'
 
 const VideosList = props => {
-  const {videos} = props
+  const {videos, onVideoClick} = props
+
+  const handleClick = video => () => {
+    onVideoClick(video)
+  }
 
   return (
     <List>
-      {
-        videos.map(video => (
-          <>
-            <ListItem key={video.id} button>
-              <ListItemAvatar>
-                <VideoAvatar videoStatus={video.status} />
-              </ListItemAvatar>
-              <ListItemText
-                primary={video.title}
-                secondary={video.project.name}
-              />
-            </ListItem>
-            <Divider />
-          </>
+      { videos.map(video => (
+          <ListItem
+            key={video.id}
+            onClick={handleClick(video)}
+            divider
+            disableGutters
+            button
+          >
+            <ListItemAvatar>
+              <VideoAvatar videoStatus={video.status} />
+            </ListItemAvatar>
+            <ListItemText
+              primary={video.title}
+              secondary={video.project.name}
+            />
+          </ListItem>
         ))
       }
     </List>
@@ -29,7 +35,8 @@ const VideosList = props => {
 }
 
 VideosList.propTypes = {
-  videos: PropTypes.array.isRequired
+  videos: PropTypes.array.isRequired,
+  onVideoClick: PropTypes.func.isRequired,
 }
 
 export default VideosList
