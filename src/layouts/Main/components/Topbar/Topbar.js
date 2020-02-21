@@ -55,7 +55,7 @@ const Topbar = (props) => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
-            Tutorbox App
+            Tutorbox
           </Typography>
           <div className={classes.actions}>
             <Button color="inherit" onClick={toogleNotifications}>
