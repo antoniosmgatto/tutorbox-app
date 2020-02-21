@@ -35,7 +35,7 @@ const Toast = props => {
 }
 
 Toast.propTypes = {
-  autoHideDuration: PropTypes.bool,
+  autoHideDuration: PropTypes.number,
   message: PropTypes.string.isRequired,
   onClose: PropTypes.func.isRequired,
   open: PropTypes.bool,
