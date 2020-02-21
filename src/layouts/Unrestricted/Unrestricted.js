@@ -5,17 +5,18 @@ import { Container, Grid, Paper, Typography } from '@material-ui/core'
 
 const useStyles = makeStyles(theme => ({
   root: {
-    height: '100%'
+    height: '100%',
+    backgroundImage: 'linear-gradient(rgba(0, 0, 0, .3), rgba(0, 0, 0, .8)), url(/images/background.jpg)',
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat  ',
+    backgroundPosition: 'center ',
   },
   gridContainer: {
     height: '100vh',
   },
   paper: {
-    padding: 0,
-    width: '100%',
     minHeight: 400,
     display: 'flex',
-    justifyContent: 'center'
   },
   section: {
     width: 320,
@@ -38,7 +39,7 @@ const Unrestricted = props => {
         >
           <Grid
             item
-            md={8}
+            md={4}
             xs={12}
           >
             <Paper className={classes.paper}>
