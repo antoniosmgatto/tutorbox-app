@@ -21,12 +21,16 @@ const useStyles = makeStyles({
   }
 })
 
-const VideosTable = ({ videos }) => {
+const VideosTable = ({ videos, onVideoClick }) => {
   const classes = useStyles()
   const [page] = useState(0)
 
   const handlerPageChanges = () => {
     console.log('page changed')
+  }
+
+  const handleVideoClick = video => {
+    onVideoClick(video)
   }
 
   return(
@@ -35,7 +39,7 @@ const VideosTable = ({ videos }) => {
         <TableHead className={classes.header}>
           <TableRow>
             <TableCell>Vídeo</TableCell>
-            <TableCell className={classes.smallColumn}>Project</TableCell>
+            <TableCell className={classes.smallColumn}>Projeto</TableCell>
             <TableCell className={classes.smallColumn}>Status</TableCell>
             <TableCell className={classes.smallColumn}>Última atualização</TableCell>
           </TableRow>
@@ -43,7 +47,7 @@ const VideosTable = ({ videos }) => {
         <TableBody>
           {
             videos.map(video => (
-              <TableRow key={video.id}>
+              <TableRow key={video.id} onClick={handleVideoClick}>
                 <TableCell>{video.title}</TableCell>
                 <TableCell className={classes.smallColumn}>{video.project.name}</TableCell>
                 <TableCell className={classes.smallColumn}><VideoStatus status={video.status} /></TableCell>
@@ -70,7 +74,8 @@ const VideosTable = ({ videos }) => {
 }
 
 VideosTable.propTypes = {
-  videos: PropTypes.array.isRequired
+  videos: PropTypes.array.isRequired,
+  onVideoClick: PropTypes.func.isRequired,
 }
 
 export default VideosTable

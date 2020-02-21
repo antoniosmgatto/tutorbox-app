@@ -1,8 +1,9 @@
 import React from 'react';
-import { Typography, Hidden, Button, Grid, Breadcrumbs } from '@material-ui/core';
+import { Hidden, Button, Grid } from '@material-ui/core';
 import { VideosList, VideosTable } from './components'
 import { makeStyles } from '@material-ui/styles';
 import { useHistory } from 'react-router-dom'
+import { NoRecordMessage } from 'components';
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -53,14 +54,25 @@ const Videos = () => {
           item
           xs={12}
         >
-          <Hidden mdUp>
-            <VideosList videos={videos} onVideoClick={handleVideoClick} />
-          </Hidden>
+          { videos.length === 0 ? (
+            <NoRecordMessage />
+          ) : (
+            <>
+              <Hidden mdUp>
+                <VideosList
+                  videos={videos}
+                  onVideoClick={handleVideoClick}
+                />
+              </Hidden>
 
-          <Hidden smDown>
-            <VideosTable videos={videos} />
-          </Hidden>
-
+              <Hidden smDown>
+                <VideosTable
+                  videos={videos}
+                  onVideoClick={handleVideoClick}
+                />
+              </Hidden>
+            </>
+          )}
         </Grid>
       </Grid>
     </section>
