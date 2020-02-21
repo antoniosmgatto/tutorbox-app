@@ -1,12 +1,16 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/styles'
-import { TextField, Button } from '@material-ui/core'
+import { TextField, Button, Typography } from '@material-ui/core'
 import { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { Alert } from '@material-ui/lab'
 import EmailValidation from 'node-email-validation'
 
 const useStyles = makeStyles(theme => ({
+  header: {
+    textAlign: 'center',
+    marginBottom: theme.spacing(4)
+  },
   email: {},
   submit: {
     marginTop: theme.spacing(2)
@@ -38,51 +42,56 @@ const RecoveryPassword = _props => {
  }
 
   return (
-    <form>
+    <>
+      <header className={classes.header}>
+        <Typography variant="h4">Recuperação de senha</Typography>
+      </header>
+      <form>
 
-      { message &&
-        <Alert
-          className={classes.alert}
-          severity="success"
-        >
-          {message}
-        </Alert>
-      }
+        { message &&
+          <Alert
+            className={classes.alert}
+            severity="success"
+          >
+            {message}
+          </Alert>
+        }
 
-      <TextField
-        className={classes.email}
-        label="Endereço de email"
-        name="email"
-        type="email"
-        variant="outlined"
-        autoComplete="off"
-        fullWidth
-        value={email}
-        onChange={handleChange}
-        autoFocus
-      />
+        <TextField
+          className={classes.email}
+          label="Endereço de email"
+          name="email"
+          type="email"
+          variant="outlined"
+          autoComplete="off"
+          fullWidth
+          value={email}
+          onChange={handleChange}
+          autoFocus
+        />
 
-      <div>
+        <div>
+          <Button
+            variant="text"
+            size="small"
+            onClick={handleAuth}
+          >
+            Lembrei minha senha
+          </Button>
+        </div>
+
         <Button
-          variant="text"
-          size="small"
-          onClick={handleAuth}
+          className={classes.submit}
+          variant="contained"
+          color="primary"
+          fullWidth
+          onClick={handleRecoveryPassword}
+          disabled={disabledSubmit}
         >
-          Lembrei minha senha
+          Recuperar senha
         </Button>
-      </div>
-
-      <Button
-        className={classes.submit}
-        variant="contained"
-        color="primary"
-        fullWidth
-        onClick={handleRecoveryPassword}
-        disabled={disabledSubmit}
-      >
-        Recuperar senha
-      </Button>
-    </form>
+      </form>
+    </>
   )
 }
 

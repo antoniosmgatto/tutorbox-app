@@ -1,12 +1,16 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/styles'
-import { TextField, Button } from '@material-ui/core'
+import { TextField, Button, Typography } from '@material-ui/core'
 import { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { Toast } from 'components'
 import { isEmptyObject } from 'helpers'
 
 const useStyles = makeStyles(theme => ({
+  header: {
+    textAlign: 'center',
+    marginBottom: theme.spacing(4)
+  },
   confirmPassword: {
     marginTop: theme.spacing(2)
   },
@@ -66,6 +70,10 @@ const NewPassword = props => {
 
   return (
     <form>
+      <header className={classes.header}>
+        <Typography variant="h4">Crie sua nova senha</Typography>
+      </header>
+
       <TextField
         className={classes.newPassword}
         label="Nova senha"

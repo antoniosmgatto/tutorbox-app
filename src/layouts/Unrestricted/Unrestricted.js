@@ -18,14 +18,9 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'center'
   },
   section: {
-    padding: theme.spacing(2),
-    width: 320
+    width: 320,
+    margin: 'auto'
   },
-  header: {
-    textAlign: 'center',
-    padding: theme.spacing(4, 0)
-  },
-  childrenWrapper: {}
 }))
 
 const Unrestricted = props => {
@@ -48,18 +43,7 @@ const Unrestricted = props => {
           >
             <Paper className={classes.paper}>
               <section className={classes.section}>
-                <header className={classes.header}>
-                  <Typography
-                    variant="h2"
-                    component="h1"
-                  >
-                    Tutorbox
-                  </Typography>
-                </header>
-
-                <div className={classes.childrenWrapper}>
-                  { children }
-                </div>
+                { children }
               </section>
             </Paper>
           </Grid>
