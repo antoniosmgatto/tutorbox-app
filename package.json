@@ -14,7 +14,7 @@
     "history": "^4.10.1",
     "moment": "^2.24.0",
     "node-email-validation": "^1.0.4",
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.0",
     "normalize.css": "^8.0.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
